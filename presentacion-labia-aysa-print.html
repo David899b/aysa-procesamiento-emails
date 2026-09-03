@@ -144,7 +144,11 @@ const SLIDES = [
 </div>
 <p class="foot">Proyecto labIA · Cliente Aysa · Documento de decisión — 2 Sep 2026</p>`,
 
-
+/* 2 AGENDA */
+()=>`<div class="kicker">Navegación</div><h2 style="margin-bottom:30px;">Agenda de la presentación</h2>
+<div class="grid cols2">
+  ${["01 · El problema y su costo","02 · Por qué IA (build vs buy)","03 · La solución · pipeline","04 · Las 5 estrategias","05 · Análisis financiero · 3 escenarios","06 · Registro de riesgos","07 · Roadmap en 3 horizontes","08 · Gobernanza & stakeholders","09 · Métricas y cierre"].map((t,i)=>`<div class="card hover" style="display:flex;gap:16px;align-items:center;"><span class="num sm" style="width:70px;">${String(i+1).padStart(2,'0')}</span><span style="font-size:1.05rem;font-weight:600;">${t.replace(/^\d+\s·\s/,'')}</span></div>`).join('')}
+</div>`,
 
 /* 3 PROBLEMA */
 ()=>`<div class="kicker">01 · El problema</div><h2>Respuestas manuales que no escalan</h2>
@@ -193,39 +197,51 @@ const SLIDES = [
 </div>
 <div class="callout acc" style="margin-top:22px;"><span class="ico">🧭</span><div><b>Regla de oro:</b> el LLM solo <i>extrae</i> e <i>interpreta</i>. La cuenta se <b>confirma o rechaza por cruce con la fuente de verdad</b> — nunca por lo que "dice" un modelo. Así se previene fraude y suplantación.</div></div>`,
 
-/* 6 ESTRATEGIAS — overview + comparativa */
-()=>`<div class="kicker">03 · Estrategias</div><h2 style="margin-bottom:20px;">5 caminos, 1 destino: <span class="grad">Enterprise</span></h2>
-<div class="grid" style="gap:14px;margin-bottom:22px;">
-  <div class="flow" style="font-size:.95rem;">
+/* 6 SECTION ESTRATEGIAS */
+()=>`<div class="kicker">04 · Alternativas</div>
+<div style="display:flex;flex-direction:column;justify-content:center;height:100%;">
+  <h2 style="font-size:clamp(3rem,7vw,5.5rem);">5 <span class="grad">estrategias</span></h2>
+  <p class="bigline" style="margin-top:20px;">De un MVP mínimo a una plataforma enterprise de punta a punta. Cada una con modelo, costos en 3 escenarios, tiempos, mantenimiento y equipo.</p>
+  <p class="bigline" style="margin-top:14px;color:var(--acc);font-weight:600;">Desde una escala de cliente como Aysa, el destino es la <span class="grad">Estrategia 5 · Enterprise</span> — y el MVP &rarr; E2/E3/E4 son los escalones hacia esa plataforma completa.</p>
+  <div class="flow" style="margin-top:36px;font-size:1rem;">
     <span class="step">E1 · MVP (entrada)</span><span class="arr">➜</span>
     <span class="step">E2 · Triage</span><span class="arr">➜</span>
     <span class="step">E3 · OCR</span><span class="arr">➜</span>
     <span class="step">E4 · Data/BI</span><span class="arr">➜</span>
     <span class="step hot">E5 · ENTERPRISE (destino)</span>
   </div>
-</div>
-<div style="overflow:auto;max-height:48vh;">
-<table class="table">
-  <thead><tr><th>#</th><th>Estrategia</th><th>Costo ARS / lote</th><th>Set-up</th><th>Equipo</th><th>Madurez</th></tr></thead>
-  <tbody>
-    ${[
-      ["1","Filtro det. + Solo Identidad","12K / 21K / 30K","4–6 sem","2 PT",'<span class="pill p-good">Entrada</span>'],
-      ["2","Triage LLM + Human-in-loop","120K / 172K / 225K","8–10 sem","3",'<span class="pill p-warn">Núcleo</span>'],
-      ["3","OCR + Identidad","165K / 240K / 315K","10–12 sem","4",'<span class="pill p-warn">Componente</span>'],
-      ["4","Clustering + Campañas","128K / 183K / 240K","9–11 sem","3",'<span class="pill p-warn">BI</span>'],
-      ["5","Orquestación Completa","270K / 375K / 480K","14–18 sem","5–6",'<span class="pill p-bad">★ Enterprise</span>']
-    ].map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td class="mono">${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td></tr>`).join('')}
-  </tbody>
-</table>
-</div>
-<p class="body" style="margin-top:10px;font-size:.82rem;color:var(--dim);">ARS con K (ej. 21K = ARS 21.000) · pesimista / base / optimista · ref. 1 USD ≈ 1.500 ARS · Desde la escala de Aysa, el destino es E5.</p>`,
+</div>`,
 
 /* 7 E1 */
 strategyCard(1,"Filtro Determinístico + Solo Identidad","Puerta de entrada — no el destino","Sin IA en el grueso. Reglas determinísticas resuelven campaña, tipo, spam y dedupe. El LLM solo extrae los campos de identidad y se cruza con la base. **Validar la tasa real de confirmación/rechazo con mínimo riesgo antes de escalar al enterprise.**",["Qwen2.5:14b","gpt-5-mini"],["12","21","30"],"4–6 semanas","1–2 días","Bajo","2 PT",["Costo casi nulo","Rápido de construir","Valida el proceso antes del enterprise"],["No captura intención libre","Clasificación rígida","Sin feedback en tiempo real"],"low"),
-/* 8 E5 */
+/* 8 E2 */
+strategyCard(2,"Triage Completo con LLM + Human-in-the-Loop","Balance operativo","El LLM clasifica todo con schema estricto y un juez de validación. Bajo el umbral de confianza, deriva a una cola de revisión humana.",["Qwen2.5:14b","gpt-5-mini / gemini-3-flash"],["120","172","225"],"8–10 semanas","3–5 días","Medio","3",["Captura intención libre","Alta precisión con juez","Feedback humano real"],["Requiere operador humano","Más tokens","Requiere golden set"],"mid"),
+/* 9 E3 */
+strategyCard(3,"OCR + Identidad para Adjuntos","Máxima evidencia de titularidad","Además del triage, procesa adjuntos (factura/empadronamiento) con OCR y extrae nombre y número del documento: la señal de identidad más fuerte.",["Qwen2.5-VL","gemini-3-flash-vision"],["165","240","315"],"10–12 semanas","4–7 días","Medio-alto","4",["Máxima evidencia de titularidad","Menos falsos positivos","Robusto a emails escuetos"],["Más caro","Más mantenimiento (formatos)","Más lento"],"mid"),
+/* 10 E4 */
+strategyCard(4,"Clustering Semántico + Campañas","Data para Marketing compartido","Igual que E2, más embeddings para dedupe semántico. El output se normaliza en un dataset accionable por campaña para BI/Marketing.",["Qwen/gpt-5-mini","+ bge-m3 / nomic-embed"],["128","183","240"],"9–11 semanas","3–5 días","Medio","3",["Data única para Marketing","Dedupe semántico real","Normalización para BI"],["Complejidad extra","Requiere KPIs desde el día 1"],"mid"),
+/* 11 E5 */
 strategyCard(5,"Orquestación Completa (CRM + BI)","Full enterprise — EL DESTINO","Todo integrado: ingestión schedulada, OCR, triage, verificación de identidad en tiempo real, CRM, respuestas automáticas y dashboard en vivo por campaña. La solución de plataforma que merece un cliente de la escala de Aysa.",["Full stack multi-modal","Qwen2.5-VL / gpt-5-mini"],["270","375","480"],"14–18 semanas","5–8 días","Alto","5–6",["Punta a punta automatizado","Dashboard en vivo","Escalable a más volumen y campañas"],["El más caro","Alto mantenimiento","Requiere equipo dedicado de operación"],"high"),
 
-/* 9 FINANCIERO */
+/* 12 COMPARATIVA */
+()=>`<div class="kicker">04 · Resumen</div><h2 style="margin-bottom:24px;">Las 5 estrategias de un vistazo</h2>
+<div style="overflow:auto;max-height:72vh;">
+<table class="table">
+  <thead><tr><th>#</th><th>Estrategia</th><th>Costo ARS / lote</th><th>Set-up</th><th>Tiempo lote</th><th>Equipo</th><th>Madurez</th></tr></thead>
+  <tbody>
+    ${[
+      ["1","Filtro det. + Solo Identidad","12K / 21K / 30K","4–6 sem","1–2 d","2 PT",'<span class="pill p-good">Entrada</span>'],
+      ["2","Triage LLM + Human-in-loop","120K / 172K / 225K","8–10 sem","3–5 d","3",'<span class="pill p-warn">Núcleo</span>'],
+      ["3","OCR + Identidad","165K / 240K / 315K","10–12 sem","4–7 d","4",'<span class="pill p-warn">Componente</span>'],
+      ["4","Clustering + Campañas","128K / 183K / 240K","9–11 sem","3–5 d","3",'<span class="pill p-warn">BI</span>'],
+      ["5","Orquestación Completa","270K / 375K / 480K","14–18 sem","5–8 d","5–6",'<span class="pill p-bad">★ Enterprise</span>']
+    ].map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td class="mono">${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td>${r[6]}</td></tr>`).join('')}
+  </tbody>
+</table>
+</div>
+<p class="body" style="margin-top:14px;font-size:.85rem;color:var(--dim);">Costos en ARS, marcados en miles con <b>K</b> (ej. 21K = ARS 21.000): pesimista / base / optimista (ref. 1 USD ≈ 1.500 ARS) · Escala de madurez → mejores datos, pero mayor costo, tiempo y mantenimiento.</p>`,
+
+/* 13 FINANCIERO */
 ()=>`<div class="kicker">05 · Financiero</div><h2 style="margin-bottom:22px;">Costo y retorno en 3 escenarios</h2>
 <div class="grid cols2">
   <div class="card">
@@ -280,34 +296,46 @@ strategyCard(5,"Orquestación Completa (CRM + BI)","Full enterprise — EL DESTI
 </div>
 <div class="callout acc" style="margin-top:22px;"><span class="ico">🎯</span><div><b>Principio "shrink the ask":</b> se aprueba solo H1. Si el piloto no supera el go/no-go, se cierra con una pérdida acotada al presupuesto del piloto. Riesgo total limitado.</div></div>`,
 
-/* 11 GOBERNANZA + METRICAS */
-()=>`<div class="kicker">07 · Gobernanza & Métricas</div><h2 style="margin-bottom:22px;">Quién decide, qué mide</h2>
+/* 16 GOBERNANZA */
+()=>`<div class="kicker">08 · Gobernanza & stakeholders</div><h2 style="margin-bottom:26px;">Quién decide qué</h2>
 <div class="grid cols2">
   <div class="card">
     <div class="label">Roles de gobernanza</div>
-    ${[["Business Sponsor","Gerencia Operaciones/Marketing"],["Technical Sponsor","CIO / CTO"],["Finance co-author","Finanzas"],["Compliance owner","Legal / CISO / DPO · Ley 25.326"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:.88rem;"><b>${a}</b><span style="color:var(--muted);">${b}</span></div>`).join('')}
-    <div class="divider" style="margin:12px 0;"></div>
-    <div class="label">Go / No-Go del piloto</div>
-    ${[["Precisión clasificación","≥ 90%"],["Precisión extracción identidad","≥ 95%"],["Derivación a humano","< 30%"],["Payback piloto","< 6 meses"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(31,48,80,.4);font-size:.85rem;"><span>${a}</span><b class="mono">${b}</b></div>`).join('')}
+    ${[["Business Sponsor","Gerencia Operaciones/Marketing"],["Technical Sponsor","CIO / CTO"],["Finance co-author","Finanzas"],["Compliance owner","Legal / CISO / DPO · Ley 25.326"],["Entrega","Equipo según estrategia (RACI)"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);"><b>${a}</b><span class="body" style="font-size:.9rem;">${b}</span></div>`).join('')}
   </div>
   <div class="card">
     <div class="label">A cada stakeholder, lo que le importa</div>
-    ${[["CFO","Cash flow · payback · ROI/NPV · escenarios"],["CIO/CTO","Factibilidad · integración CRM/BBDD · seguridad"],["CEO","Valor de negocio · evitar multas · ventaja"],["Marketing","Data por campaña: % confirmación, rechazo, opt-out"]].map(([a,b])=>`<div style="display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);align-items:flex-start;font-size:.88rem;"><b style="min-width:80px;">${a}</b><span style="color:var(--muted);">${b}</span></div>`).join('')}
-    <div class="divider" style="margin:12px 0;"></div>
-    <div class="label">Kill criteria (cortar si…)</div>
-    ${[["Time-to-value","retraso > 6 meses"],["Adopción","> 50% bajo lo previsto"],["Costo operativo","> 3× el modelo del piloto"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(31,48,80,.4);font-size:.85rem;"><span>${a}</span><b class="mono" style="color:var(--warn);">${b}</b></div>`).join('')}
+    ${[["CFO","Cash flow · payback · ROI/NPV · escenarios"],["CIO/CTO","Factibilidad · integración CRM/BBDD · seguridad"],["CEO","Valor de negocio · evitar multas · ventaja"],["Marketing","Data por campaña: % confirmación, rechazo, opt-out"]].map(([a,b])=>`<div style="display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);align-items:flex-start;"><b style="min-width:90px;">${a}</b><p class="body" style="font-size:.9rem;margin:0;">${b}</p></div>`).join('')}
   </div>
 </div>`,
 
-/* 12 Q&A */
-()=>`<div style="display:flex;flex-direction:column;justify-content:center;height:100%;text-align:center;">
-  <h2 style="font-size:clamp(3rem,7vw,5.5rem);">¿<span class="grad">Preguntas</span>?</h2>
-  <p class="lead" style="margin-top:24px;max-width:700px;margin-left:auto;margin-right:auto;">Gracias por su tiempo. labIA · Concentrix — listos para validar con datos reales de Aysa y avanzar en el piloto.</p>
-  <div class="grid cols3" style="margin-top:40px;max-width:800px;margin-left:auto;margin-right:auto;">
-    <div class="card"><div class="label">Próximo paso</div><div class="body" style="font-size:.95rem;">Resolver self-host vs cloud + fuente de verdad</div></div>
-    <div class="card"><div class="label">Piloto</div><div class="body" style="font-size:.95rem;">E1 · 4–6 sem · ARS 12–30M</div></div>
-    <div class="card"><div class="label">Contacto</div><div class="body" style="font-size:.95rem;">labIA · Concentrix</div></div>
+/* 17 METRICAS */
+()=>`<div class="kicker">09 · Métricas</div><h2 style="margin-bottom:26px;">Métricas de éxito y criterios de corte</h2>
+<div class="grid cols2">
+  <div class="card">
+    <div class="label">Go / No-Go del piloto (H1)</div>
+    ${[["Precisión de clasificación (golden set)","≥ 90%"],["Precisión de extracción de identidad","≥ 95%"],["Tasa de derivación a humano","< 30%"],["Payback piloto","< 6 meses"],["Riesgo R1 sin mitigación","0 · bloqueante"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);"><span>${a}</span><b class="mono">${b}</b></div>`).join('')}
   </div>
+  <div class="card">
+    <div class="label">Kill criteria (señales para cortar)</div>
+    ${[["Time-to-value","retraso > 6 meses"],["Adopción","> 50% bajo lo previsto"],["Costo operativo","> 3× el modelo del piloto"],["Precisión","no se cierra con revisión humana"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);"><span>${a}</span><b class="mono" style="color:var(--warn);">${b}</b></div>`).join('')}
+  </div>
+</div>
+<div class="callout green" style="margin-top:22px;"><span class="ico">📊</span><div><b>Leading vs lagging:</b> operativas en cada fase (precisión, tiempo/caso) y financieras (ahorro, ROI) medidas en gates de 3·6·12 meses.</div></div>`,
+
+/* 18 CIERRE */
+()=>`<div style="display:flex;flex-direction:column;justify-content:center;height:100%;">
+  <div class="kicker">Recomendación</div>
+  <h2>Una hoja de ruta<br>en <span class="grad">4 pasos</span></h2>
+  <div class="grid cols2" style="margin-top:30px;">
+    ${[
+      ["1 · Resolver la base","Self-host vs cloud (privacidad 25.326) + confirmar fuente de verdad de Aysa (BBDD de clientes)."],
+      ["2 · Aprobar H1 (puerta de entrada)","Estrategia 1 · 4–6 semanas · ARS 12–30M · go/no-go claro."],
+      ["3 · Escalar al enterprise","OCR + BI + CRM + dashboard: camino a la Estrategia 5, la plataforma que merece la escala de Aysa."],
+      ["4 · Golden set","~150 emails etiquetados a mano para medir precisión antes de escalar."]
+    ].map(([t,d])=>`<div class="card hover"><h3 style="color:var(--acc);margin-bottom:8px;">${t}</h3><p class="body" style="font-size:.95rem;">${d}</p></div>`).join('')}
+  </div>
+  <div class="callout" style="margin-top:24px;"><span class="ico">✅</span><div><b>Gracias.</b> labIA · Concentrix — listos para validar con datos reales de Aysa y avanzar en el piloto.</div></div>
 </div>`
 ];
 function strategyCard(n,tag,subtitle,desc,models,cost,setup,lot,maintain,team,pros,cons,risk){

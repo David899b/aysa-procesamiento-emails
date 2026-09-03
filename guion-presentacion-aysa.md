@@ -1,8 +1,8 @@
-# Guión de la presentación — labIA · Concentrix para Aysa (12 slides)
+# Guión de la presentación — labIA · Concentrix para Aysa
 
 > **Cómo usar:** este guión es tu red de seguridad para la demo y la defensa ante Aysa. Por cada lámina te doy (1) qué decir, (2) el análisis detrás del dato, y (3) las posibles preguntas con sus respuestas fundamentadas. Léelo antes de presentar, no durante.
 
-> **Moneda:** todos los valores económicos están en **pesos argentinos (ARS)**, tomando referencia **1 USD ≈ ARS 1.500** (a ajustar con la paridad del día de la reunión).
+> **Moneda:** todos los valores económicos están en **pesos argentinos (ARS)**, tomando referencia **1 USD ≈ ARS 1.500** (a ajustar con la paridad del día de la reunión). Cuando aplique, se indica el equivalente.
 > **Notación de montos:** **K = miles** (ej. 21K = ARS 21.000) y **M = millones** (ej. ARS 12–30 M = ARS 12 a 30 millones).
 
 > **Foco de la propuesta (ENTERPRISE):** Aysa es un cliente grande → el **destino es la Estrategia 5 (plataforma enterprise)** con OCR + embeddings + CRM + dashboard en vivo. Las estrategias 1–4 son **escalones** hacia ese destino, no fines. La narrativa posiciona el piloto (E1) como **puerta de entrada**, nunca como el objetivo final.
@@ -19,7 +19,7 @@
 
 ---
 
-## Slide 1 — Portada
+## Lámina 1 — Portada
 **Qué decir:**
 > "Soy [nombre], del labIA de Concentrix. Hoy les traigo cómo procesamos las ~23.000 respuestas de su casilla de email de clasificación, validamos de quién es cada cuenta y transformamos esto en data accionable para Marketing."
 
@@ -30,7 +30,16 @@
 
 ---
 
-## Slide 2 — El problema y su costo
+## Lámina 2 — Agenda
+**Qué decir:**
+> "La presentación cubre 9 temas: el problema y su costo, por qué IA, la solución, las 5 estrategias, análisis financiero, riesgos, roadmap, gobernanza y métricas."
+
+**Análisis:**
+- Es una lámina de navegación. No es necesario detenerse — solo mencioná que el foco está en las estrategias y el financial.
+
+---
+
+## Lámina 3 — El problema y su costo (la más importante para convencer)
 **Qué decir:**
 > "Hoy cada email se procesa a mano: identificar campaña, cuenta y voluntad toma 4 a 8 minutos. En un lote de 23k con ~70% útil, son más de 1.100 horas-hombre al año. Eso es lento, caro y, sobre todo, riesgoso: si confirmamos mal la titularidad de una cuenta, es fraude de servicio o reclamos."
 
@@ -47,7 +56,7 @@
 
 ---
 
-## Slide 3 — Por qué IA (build vs buy)
+## Lámina 4 — Por qué IA (build vs buy)
 **Qué decir:**
 > "Evaluamos tres caminos: más gente (no escala), solo reglas/RPA (se rompe con intención libre) y un SaaS genérico (no valida identidad con SU base de clientes). Solamente la IA construida sobre un modelo fundación ancla la validación en la fuente de verdad de Aysa."
 
@@ -57,7 +66,7 @@
 
 ---
 
-## Slide 4 — Pipeline de 4 etapas
+## Lámina 5 — Pipeline de 4 etapas
 **Qué decir:**
 > "La etapa 1 es determinística y sin IA — resuelve el 70% del volumen gratis. La etapa 2 usa un LLM solo para clasificar y extraer. La etapa 3 es el corazón: cruzamos lo extraído con su base de clientes para CONFIRMAR o RECHAZAR. Solo así es auditable."
 
@@ -71,107 +80,111 @@
 
 ---
 
-## Slide 5 — 5 estrategias: overview + comparativa
+## Lámina 6 — Sección estrategias (intro)
 **Qué decir:**
-> "Cinco caminos posibles, de un MVP mínimo a una plataforma enterprise. Aysa es un cliente grande → el destino es la Estrategia 5: plataforma de punta a punta con OCR + embeddings + CRM + dashboard en vivo. Las demás son escalones."
+> "Cinco caminos posibles, de un MVP mínimo a una plataforma enterprise. Aysa es un cliente grande → el destino es la Estrategia 5. Las demás son escalones."
 
-**Análisis / foco ENTERPRISE:**
-- **E1 (MVP):** **ARS 12–30K/lote** (USD 8–20). Puerta de entrada que valida la tasa real de confirmación/rechazo con mínimo riesgo.
-- **E2 (Triage LLM):** **ARS 120–225K/lote** (USD 80–150). Núcleo: captura intención libre.
-- **E3 (OCR):** **ARS 165–315K/lote** (USD 110–210). Adjuntos = señal de identidad más fuerte.
-- **E4 (Data/BI):** **ARS 128–240K/lote** (USD 85–160). Marketing consume el dato por campaña.
-- **E5 (Enterprise):** **ARS 270–480K/lote** (USD 180–320). **Es el destino.** Plataforma completa.
+**Análisis:**
+- La lámina posiciona la narrativa enterprise. No es una slides de datos — es una transición conceptual.
+
+---
+
+## Láminas 7–11 — Las 5 estrategias
+**Qué decir (patrón por estrategia):**
+> "Estrategia [N]: [nombre]. Modelo: [X]. Costo por lote de [pesimista] a [optimista] (base [base]). Set-up de [setup]. Pros: [...] / Contras: [...]. Se recomienda [uso]."
+
+**Análisis / cómo elegir (foco ENTERPRISE):**
+> **Vista de destino:** Aysa es un cliente grande → el objetivo final es la **Estrategia 5 (enterprise)**: plataforma de punta a punta con OCR + embeddings + CRM + dashboard en vivo. Las estrategias 1–4 no son fines, son **escalones hacia esa solución enterprise**.
+
+- **E5 (Full/Enterprise):** **ARS 270–480K/lote** (USD 180–320). **Es el destino.** Plataforma de punta a punta, escalable y con dashboard en vivo — lo que merece un cliente de la escala de Aysa.
+- **E4 (Data/BI):** **ARS 128–240K/lote** (USD 85–160). Componente clave del enterprise: Marketing consume el dato por campaña.
+- **E3 (OCR):** **ARS 165–315K/lote** (USD 110–210). Componente clave del enterprise: adjuntos (factura/empadronamiento) = señal de identidad más fuerte.
+- **E2 (Triage LLM):** **ARS 120–225K/lote** (USD 80–150). Núcleo del enterprise: captura intención libre.
+- **E1 (MVP):** **ARS 12–30K/lote** (USD 8–20). **No es el fin** — es la **puerta de entrada que valida la tasa real de confirmación/rechazo con mínimo riesgo** antes de invertir en el enterprise.
 
 **Pregunta probable:**
-- *"¿Por qué tanta diferencia de costo?"* → El costo refleja cuánto volumen llega al LLM (E1 ~15% → barato; E5 todo + OCR + embeddings → caro) y si usa cloud vs self-host.
+- *"¿Por qué tanta diferencia de costo entre estrategias?"* → El costo por lote refleja cuánto volumen llega al LLM (E1 ~15% → barato; E5 todo + OCR + embeddings → caro) y si usa cloud vs self-host.
 
 ---
 
-## Slide 6 — Estrategia 1: MVP (puerta de entrada)
+## Lámina 12 — Comparativa (tabla resumen)
 **Qué decir:**
-> "Estrategia 1: filtro determinístico + solo identidad. Sin IA en el grueso — reglas resuelven campaña, tipo, spam y dedupe. El LLM solo extrae campos de identidad y se cruza con la base. Costo: **ARS 12–30K/lote**, 4–6 semanas de set-up, 2 personas. Es la puerta de entrada que valida el proceso antes de escalar."
+> "Tabla resumen de las 5 estrategias: costos, tiempos, equipo y madurez. Noten la escala: de 12K a 480K por lote. El salto más grande es de E1 a E2 — ahí empieza el LLM completo."
 
 **Análisis:**
-- **Por qué arrancar acá:** riesgo mínimo, costo casi nulo, valida la tasa real de confirmación/rechazo.
-- **Limitación:** no captura intención libre, clasificación rígida, sin feedback en tiempo real.
-- **Lo que mide el piloto:** precisión de clasificación ≥90%, extracción ≥95%, derivación a humano <30%.
+- La tabla es visual y rápida. No la leas completa — señalá las diferencias clave y el camino E1→E5.
 
 ---
 
-## Slide 7 — Estrategia 5: Enterprise (el destino)
-**Qué decir:**
-> "Estrategia 5: orquestación completa. Todo integrado — ingestión schedulada, OCR, triage, verificación de identidad en tiempo real, CRM, respuestas automáticas y dashboard en vivo por campaña. Es la solución de plataforma que merece un cliente de la escala de Aysa."
-
-**Análisis:**
-- **Costo:** **ARS 270–480K/lote** (USD 180–320). El más caro, pero el único que resuelve punta a punta.
-- **TCO 3 años:** **ARS 67–135 M** (USD 45–90k) incluyendo las 4 capas de costo + contingencia 25%.
-- **Equipo:** 5–6 personas dedicadas. Alto mantenimiento.
-- **El camino:** E1 → E2/E3 → E4 → E5. No se salta directo.
-
----
-
-## Slide 8 — Análisis financiero (para el CFO)
+## Lámina 13 — Análisis financiero (para el CFO)
 **Qué decir:**
 > "Pido aprobar solo el piloto (Horizonte 1) de **ARS 12–30 M** (USD 8–20k). El payback base es de 6 a 12 meses. La contingencia del 25% cubre la preparación de datos y el cambio de proceso — los dos costos que casi siempre se subestiman."
 
 **Análisis:**
 - **3 escenarios** en cada estrategia = rigor financiero.
-- **TCO 3 años (E5):** **ARS 67–135 M** (USD 45–90k) con las 4 capas de costo + contingencia 25%.
+- **TCO 3 años (E5, enterprise):** **ARS 67–135 M** (USD 45–90k) e incluye las 4 capas de costo (infraestructura, integración, talento, cambio de gestión) + contingencia 25%.
 - **"Shrink the ask":** al aprobar solo H1, el downside se acota. Esto es lo que más convence a un comité.
 
-**Preguntas probables:**
+**Preguntas probables (y respuesta):**
 - *"¿Cuál es el payback?"* → 6–12 meses base.
-- *"¿Y si el modelo cambia de precio?"* → Capa de abstracción + self-host como contingencia.
-- *"¿Por qué el costo real siempre sube?"* → Data prep + cambio de proceso son 40–60% del costo.
+- *"¿Y si el modelo cambia de precio?"* → Capa de abstracción + self-host abierto como contingencia (riesgo R6/R8).
+- *"¿Por qué el costo real siempre sube?"* → Data prep + cambio de proceso son 40–60% del costo y van con 25% de contingencia.
 
 ---
 
-## Slide 9 — Registro de riesgos
+## Lámina 14 — Registro de riesgos
 **Qué decir:**
 > "El riesgo que más nos importa es R1: confirmar mal una identidad. Lo mitigamos con la regla de oro: cruzar siempre con la fuente de verdad y derivar a humano bajo duda. R2 es el cumplimiento de la Ley 25.326, que condiciona self-host vs cloud."
 
 **Análisis:**
 - Riesgo con **owner y mitigación** = madurez organizacional. No es un párrafo vago.
-- Los 3 más críticos: **R1** (fraude, impacto alto), **R2** (regulatorio, impacto alto), **R4** (opt-out = derecho ejercible, impacto alto).
-- Los 5 restantes (R3 al R8) son de impacto medio con mitigaciones definidas.
+- Los 3 riesgos más críticos: **R1** (fraude), **R2** (regulatorio), **R4** (opt-out = derecho ejercible del usuario).
 
 ---
 
-## Slide 10 — Roadmap: 3 horizontes
+## Lámina 15 — Roadmap: 3 horizontes
 **Qué decir:**
 > "Tres horizontes con go/no-go claros. Se aprueba solo H1 — si el piloto no supera el go/no-go, se cierra con una pérdida acotada al presupuesto del piloto."
 
 **Análisis:**
-- **H1 (0–6 meses):** Puerta de entrada (E1) + golden set + medir tasa real. **ARS 12–30 M.** Aprueba ahora.
-- **H2 (6–18 meses):** Expandir a E2/E3 (human-in-loop, OCR) + gobernanza/ops. **ARS 30–75 M.**
-- **H3 (18–36 meses):** E4/E5 (data campañas + dashboard + CRM full). **ARS 67–135 M.** El destino.
-- **Principio "shrink the ask":** riesgo total limitado al piloto. Si no funciona, se corta.
+- **H1 (0–6 meses):** Puerta de entrada (E1) + golden set + medir tasa real. **ARS 12–30 M.**
+- **H2 (6–18 meses):** Expandir a E2/E3 + gobernanza/ops. **ARS 30–75 M.**
+- **H3 (18–36 meses):** E4/E5 enterprise. **ARS 67–135 M.** El destino.
 
 ---
 
-## Slide 11 — Gobernanza & Métricas
+## Lámina 16 — Gobernanza & stakeholders
 **Qué decir:**
-> "Gobernanza clara: un business sponsor dueño del resultado, finanzas como co-autor, y compliance dueño de la Ley 25.326. El piloto tiene gatillos de go/no-go objetivos: precisión ≥90%, payback <6 meses. Y kill criteria explícitas: si la adopción cae >50% o el costo se triplica, se corta."
+> "Gobernanza clara: un business sponsor dueño del resultado, finanzas como co-autor, y compliance dueño de la Ley 25.326. Y una lectura por audiencia: lo que le importa al CFO no es lo que le importa a Marketing."
 
 **Análisis:**
-- **Roles:** Business Sponsor (Gerencia Ops/Marketing), Technical Sponsor (CIO/CTO), Finance co-author, Compliance owner (Legal/CISO/DPO).
-- **A cada stakeholder su métrica:** CFO → cash flow/payback; CIO → factibilidad; CEO → valor; Marketing → data por campaña.
-- **Kill criteria:** time-to-value retrasado >6 meses, adopción >50% bajo, costo >3× modelo del piloto.
+- Sponsor + technical sponsor + finance + compliance → evita los dos fallos clásicos: "técnicos inflan el valor" o "negocio subestima el costo".
+- A cada stakeholder se le muestra su métrica.
 
 ---
 
-## Slide 12 — Q&A
+## Lámina 17 — Métricas y kill criteria
 **Qué decir:**
-> "Gracias por su tiempo. El próximo paso concreto es resolver self-host vs cloud y confirmar la fuente de verdad de Aysa. Con esos dos datos, arrancamos el piloto de 4–6 semanas."
+> "El piloto tiene gatillos de go/no-go objetivos: precisión de clasificación ≥90%, extracción ≥95%, derivación a humano <30%, payback <6 meses. Y kill criteria explícitas: si en algún punto la adopción cae >50% o el costo se triplica, se corta."
+
+**Análisis:**
+- Tener **kill criteria por escrito** antes de arrancar es señal de rigor y reduce el miedo a financiar.
+- Separar **leading** (precisión, tiempo/caso) de **lagging** (ahorro, ROI).
+
+---
+
+## Lámina 18 — Recomendación / cierre
+**Qué decir:**
+> "El pedido concreto: arrancar con el piloto (Estrategia 1) de 4–6 semanas y **ARS 12–30 M** (USD 8–20k) — pero entiéndase: el piloto es la **puerta de entrada** hacia la solución **enterprise** que la escala de Aysa merece. Resolvemos en la reunión self-host vs cloud y confirmamos la fuente de verdad. Con esos dos datos, validamos la tasa real de confirmación/rechazo y trazamos el camino a la solución de plataforma completa (Estrategia 5): OCR + embeddings + CRM + dashboard en vivo."
 
 **Análisis / cierre:**
-- **Acción concreta:** resolver los 2 bloqueadores (hosting + fuente de verdad) → arrancar piloto.
-- **Foco enterprise:** la narrativa posiciona el piloto como primer peldaño, nunca como el objetivo final.
-- Si preguntan por timeline: "En 4–6 semanas tenemos datos reales de precisión. En 3 meses, go/no-go para escalar."
+- Cierra con una **acción concreta y pedido de decisión**, no con ambigüedad.
+- **Foco enterprise:** la narrativa posiciona el piloto como primer peldaño, nunca como el objetivo final. Aysa es un cliente grande → merece la solución de plataforma.
+- Los dos bloqueadores a pedir: **hosting (self-host/cloud)** y **fuente de verdad** (BBDD de clientes de Aysa). Sin la segunda, ninguna estrategia confirma cuentas de forma segura.
 
 ---
 
-## Bloqueadores a resolver en la reunión
+## Bloqueadores a resolver en la reunión (los más importantes)
 | Bloqueador | Por qué es crítico | Pregunta a Aysa |
 |---|---|---|
 | **Self-host vs cloud** | Define costo, privacidad (25.326) y velocidad | "¿Los datos de usuarios pueden salir de su infraestructura?" |
@@ -180,4 +193,4 @@
 
 ---
 
-*Generado por el flujo de presentaciones labIA. 12 slides · Versión compacta para manager.*
+*Generado por el flujo de presentaciones labIA. 18 slides · Versión completa.*
