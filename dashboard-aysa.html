@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aysa — Casilla de Email de Clasificación: Business Case IA</title>
+<style>
+  :root {
+    --bg:#0d1117; --card:#161b27; --card2:#1e2637; --line:#2b3547;
+    --txt:#e6ecf5; --muted:#8fa0bd; --acc:#3fd0ff; --good:#2fd39a;
+    --warn:#ffc75e; --bad:#ff6b6b; --title:#ffffff;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--txt); font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; padding:28px; max-width:1200px; margin:0 auto; }
+  h1 { font-size:1.7rem; color:var(--title); margin-bottom:4px; }
+  .sub { color:var(--muted); margin-bottom:6px; font-size:.95rem; }
+  .badge { display:inline-block; background:rgba(63,208,255,.12); color:var(--acc); padding:3px 12px; border-radius:20px; font-size:.75rem; font-weight:600; margin-bottom:20px; }
+  .nav { display:flex; flex-wrap:wrap; gap:6px; margin:18px 0 8px; }
+  .nav a { color:var(--muted); text-decoration:none; font-size:.8rem; padding:5px 11px; border:1px solid var(--line); border-radius:20px; }
+  .nav a:hover { color:var(--acc); border-color:var(--acc); }
+  h2 { font-size:1.25rem; margin:36px 0 14px; color:var(--acc); letter-spacing:.3px; border-bottom:1px solid var(--line); padding-bottom:8px; }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:14px; }
+  .stat { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .stat .v { font-size:1.4rem; font-weight:700; color:var(--title); }
+  .stat .l { color:var(--muted); font-size:.8rem; margin-top:4px; line-height:1.4; }
+  table { width:100%; border-collapse:collapse; margin-top:10px; font-size:.85rem; }
+  th, td { text-align:left; padding:9px 11px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { background:var(--card2); color:var(--muted); font-weight:600; text-transform:uppercase; font-size:.7rem; letter-spacing:.4px; }
+  tr:hover td { background:rgba(63,208,255,.04); }
+  .pill { display:inline-block; padding:2px 10px; border-radius:20px; font-size:.7rem; font-weight:600; white-space:nowrap; }
+  .b-low { background:rgba(47,211,154,.15); color:var(--good); }
+  .b-mid { background:rgba(255,199,94,.15); color:var(--warn); }
+  .b-high { background:rgba(255,107,107,.15); color:var(--bad); }
+  .metric { color:var(--title); font-weight:600; white-space:nowrap; }
+  .barwrap { background:var(--card2); border-radius:8px; height:10px; overflow:hidden; margin-top:4px; }
+  .bar { height:100%; border-radius:8px; }
+  .tag { color:var(--acc); }
+  .note { background:var(--card); border-left:3px solid var(--warn); padding:12px 16px; border-radius:8px; margin-top:12px; color:var(--muted); font-size:.86rem; }
+  .note.green { border-left-color:var(--good); }
+  .foot { margin-top:44px; color:var(--muted); font-size:.74rem; border-top:1px solid var(--line); padding-top:14px; }
+  .scn { display:inline-grid; grid-template-columns:repeat(3,auto); gap:4px 2px; font-size:.72rem; }
+  .scn b { color:var(--title); }
+  .tagdot { height:10px; width:10px; border-radius:50%; display:inline-block; margin-right:5px; }
+</style>
+</head>
+<body>
+
+<h1>Aysa — Casilla de Email de Clasificación</h1>
+<div class="sub">Business Case IA · Procesamiento de ~23.000 emails y validación de identidad de cuentas · Proyecto independiente</div>
+<div class="badge">Business Case · 8 secciones · 3 escenarios · Roadmap 3 horizontes</div>
+
+<div class="nav">
+  <a href="#resumen">Resumen</a>
+  <a href="#problema">Problema</a>
+  <a href="#comparativa">Estrategias</a>
+  <a href="#costo">Costo 3 escenarios</a>
+  <a href="#riesgos">Riesgos</a>
+  <a href="#roadmap">Roadmap</a>
+  <a href="#métricas">Métricas</a>
+</div>
+
+<h2 id="resumen">1. Resumen Ejecutivo</h2>
+<div class="cards">
+  <div class="stat"><div class="v">23.000</div><div class="l">Emails en casilla de email de clasificación</div></div>
+  <div class="stat"><div class="v">~30%</div><div class="l">Ruido descartable antes del LLM (spam/ooO/bounce)</div></div>
+  <div class="stat"><div class="v">4d → &lt;1d</div><div class="l">Meta de reducción de tiempo de resolución</div></div>
+  <div class="stat"><div class="v">6–12mes</div><div class="l">Payback estimado (escenario base)</div></div>
+</div>
+
+<div class="note green">✔ <b>Recomendación (foco enterprise):</b> aprobar el <b>Horizonte 1</b> (Estrategia 1, puerta de entrada, ARS 12–30 M / 4–6 sem) con go/no-go claro, como primer escalón hacia la <b>Estrategia 5 · Enterprise</b>. El LLM <b>nunca confirma identidad solo</b> — se cruza con la fuente de verdad de Aysa.</div>
+
+<div class="note">⚠ <b>Decisión pendiente (reunión de mañana):</b> ¿self-host o cloud? Define costo, privacidad (Ley 25.326) y velocidad. Las 5 estrategias corren en ambas modalidades.</div>
+
+<h2 id="problema">2. El Problema y su Costo</h2>
+<div class="cards">
+  <div class="stat"><div class="v">~16.000</div><div class="l">Emails útiles tras filtrar ruido</div></div>
+  <div class="stat"><div class="v">4–8 min</div><div class="l">Tiempo manual por email hoy</div></div>
+  <div class="stat"><div class="v">1.100–2.100h</div><div class="l">Horas-hombre totales anualizadas</div></div>
+  <div class="stat"><div class="v">$30–60k</div><div class="l">Costo operativo manual (referencia)</div></div>
+</div>
+
+<h2 id="comparativa">3–4. Las 5 Estrategias</h2>
+<table>
+  <thead>
+    <tr><th>#</th><th>Estrategia</th><th>Modelo</th><th>Costo ARS/lote (K · 3 escenarios)</th><th>Set-up</th><th>Equipo</th><th>Madurez</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>1</b></td><td>Filtro det. + Solo Identidad</td>
+      <td class="tag">Qwen-14b / gpt-5-mini</td>
+      <td class="metric">12K / 21K / 30K</td><td>4–6 sem</td><td>2 PT</td>
+      <td><span class="pill b-low">MVP</span></td>
+    </tr>
+    <tr>
+      <td><b>2</b></td><td>Triage LLM + Human-in-loop</td>
+      <td class="tag">Qwen-14b / gpt-5-mini</td>
+      <td class="metric">120K / 172K / 225K</td><td>8–10 sem</td><td>3</td>
+      <td><span class="pill b-mid">Operativo</span></td>
+    </tr>
+    <tr>
+      <td><b>3</b></td><td>OCR + Identidad (adjuntos)</td>
+      <td class="tag">Qwen2.5-VL / vision</td>
+      <td class="metric">165K / 240K / 315K</td><td>10–12 sem</td><td>4</td>
+      <td><span class="pill b-mid">Completo</span></td>
+    </tr>
+    <tr>
+      <td><b>4</b></td><td>Clustering Semántico + Campañas</td>
+      <td class="tag">Qwen-14b + bge-m3</td>
+      <td class="metric">128K / 183K / 240K</td><td>9–11 sem</td><td>3</td>
+      <td><span class="pill b-mid">Data</span></td>
+    </tr>
+    <tr>
+      <td><b>5</b></td><td>Orquestación Completa (CRM+BI)</td>
+      <td class="tag">Full stack multi-modal</td>
+      <td class="metric">270K / 375K / 480K</td><td>14–18 sem</td><td>5–6</td>
+      <td><span class="pill b-high">Enterprise</span></td>
+    </tr>
+  </tbody>
+</table>
+<div class="sub" style="margin-top:6px;font-size:.75rem">Costos: Pesimista / Base / Optimista.<span class="tagdot" style="background:var(--good)"></span>Bajo riesgo <span class="tagdot" style="background:var(--warn)"></span>Medio <span class="tagdot" style="background:var(--bad)"></span>Alto</div>
+
+<h2 id="costo">5. Costo por Lote — 3 Escenarios (ARS, K = miles)</h2>
+<div class="cards">
+  <div class="stat"><div class="l">E1 · Base 21K</div><div class="barwrap"><div class="bar" style="width:5%;background:var(--good)"></div></div></div>
+  <div class="stat"><div class="l">E2 · Base 172K</div><div class="barwrap"><div class="bar" style="width:36%;background:var(--acc)"></div></div></div>
+  <div class="stat"><div class="l">E3 · Base 240K</div><div class="barwrap"><div class="bar" style="width:50%;background:var(--warn)"></div></div></div>
+  <div class="stat"><div class="l">E4 · Base 183K</div><div class="barwrap"><div class="bar" style="width:38%;background:var(--acc)"></div></div></div>
+  <div class="stat"><div class="l">E5 · Base 375K</div><div class="barwrap"><div class="bar" style="width:78%;background:var(--bad)"></div></div></div>
+</div>
+
+<div class="note">💰 <b>TCO 3 años (E5, enterprise):</b> Infraestructura ARS 7–22 M/año · Integración ARS 30–60 M · Talento ARS 15–37 M · Gestión del cambio 5–15% extra. <b>Contingencia mínima 25%</b> (data prep + cambio suelen ser 40–60% del costo real y se subestiman). Moneda ARS (ref. 1 USD ≈ 1.500).</div>
+
+<h2 id="riesgos">6. Registro de Riesgos</h2>
+<table>
+  <thead><tr><th>#</th><th>Riesgo</th><th>Prob.</th><th>Impacto</th><th>Mitigación</th><th>Responsable</th></tr></thead>
+  <tbody>
+    <tr><td>R1</td><td>Confirmación identidad errónea (fraude)</td><td><span class="pill b-mid">Med</span></td><td><span class="pill b-high">Alto</span></td><td>Nunca confirmar solo por LLM · cruzar con fuente de verdad</td><td>ML + Ops</td></tr>
+    <tr><td>R2</td><td>Incumplimiento Ley 25.326 (PII a nube)</td><td><span class="pill b-mid">Med</span></td><td><span class="pill b-high">Alto</span></td><td>Self-host si PII · DPA si cloud · retención</td><td>Compliance/CISO</td></tr>
+    <tr><td>R3</td><td>Alucinación del LLM en extracción</td><td><span class="pill b-mid">Med</span></td><td><span class="pill b-mid">Med</span></td><td>Juez de validación + schema + golden set</td><td>QA</td></tr>
+    <tr><td>R4</td><td>Opt-out / baja no respetado</td><td><span class="pill b-low">Baj</span></td><td><span class="pill b-high">Alto</span></td><td>Priorizar [OPTOUT], nunca postergar</td><td>Operaciones</td></tr>
+    <tr><td>R5</td><td>Formatos de factura cambian (OCR)</td><td><span class="pill b-mid">Med</span></td><td><span class="pill b-mid">Med</span></td><td>Templates/benchmarks OCR, re-ajuste</td><td>QA técnica</td></tr>
+    <tr><td>R6</td><td>Sobre-costo en tókenes</td><td><span class="pill b-mid">Med</span></td><td><span class="pill b-mid">Med</span></td><td>Filtro determinístico primero (70% sin LLM), batching</td><td>Data/ML</td></tr>
+    <tr><td>R7</td><td>Adopción / dip de productividad</td><td><span class="pill b-mid">Med</span></td><td><span class="pill b-mid">Med</span></td><td>Gestión del cambio, quick wins 90 días</td><td>Sponsor</td></tr>
+    <tr><td>R8</td><td>Dependencia de proveedor LLM</td><td><span class="pill b-mid">Med</span></td><td><span class="pill b-mid">Med</span></td><td>Capa de abstracción de modelo, self-host abierto</td><td>CTO/DevOps</td></tr>
+  </tbody>
+</table>
+
+<h2 id="roadmap">7. Roadmap en 3 Horizontes</h2>
+<table>
+  <thead><tr><th>Horizonte</th><th>Marco</th><th>Objetivo</th><th>Hito de éxito</th><th>Inversión</th></tr></thead>
+  <tbody>
+    <tr><td><b>H1 · Quick Wins</b></td><td>0–6 meses</td><td>Puerta de entrada (E1) + golden set + medir tasa real confirmación/rechazo</td><td>1ª mejora KPI medible · piloto validado</td><td><b class="metric">ARS 12–30 M</b></td></tr>
+    <tr><td><b>H2 · Escala</b></td><td>6–18 meses</td><td>Expandir a E2/E3 (human-in-loop, OCR) + gobernanza/ops</td><td>ROI caso base alcanzado</td><td class="metric">ARS 30–75 M</td></tr>
+    <tr><td><b>H3 · Enterprise (destino)</b></td><td>18–36 meses</td><td>E4/E5 (data campañas + dashboard en vivo + CRM full) — plataforma que merece la escala de Aysa</td><td>Escenario optimista</td><td class="metric">ARS 67–135 M</td></tr>
+  </tbody>
+</table>
+
+<div class="note">🎯 <b>Principio "shrink the ask":</b> se aprueba <b>solo H1</b>. Si el piloto no supera el go/no-go → se cierra con pérdida acotada al presupuesto del piloto. La peor pérdida posible queda acotada.</div>
+
+<h2 id="métricas">8. Métricas de Éxito y KPI del Piloto</h2>
+<table>
+  <thead><tr><th>Going / No-Go</th><th>Threshold</th></tr></thead>
+  <tbody>
+    <tr><td>Precisión de clasificación (golden set)</td><td class="metric">≥90%</td></tr>
+    <tr><td>Precisión de extracción de identidad</td><td class="metric">≥95%</td></tr>
+    <tr><td>Tasa de derivación a humano</td><td class="metric">&lt;30% (volumen útil)</td></tr>
+    <tr><td>Payback piloto</td><td class="metric">&lt;6 meses</td></tr>
+    <tr><td>Riesgo R1 sin mitigación</td><td class="metric">0 (bloqueante)</td></tr>
+  </tbody>
+</table>
+
+<div class="note">🧠 <b>Regla de oro de validación de identidad:</b> el LLM solo <i>extrae</i> e <i>interpreta</i>; la cuenta se <b>confirma o rechaza por cruce con la fuente de verdad de Aysa</b>. Bajo umbral de confianza → siempre derivar a revisión humana. Esto mitiga R1 y es el corazón del caso.</div>
+
+<div class="foot">
+Aysa · Casilla de Email de Clasificación · Business Case IA · Proyecto independiente · Generado el 2 Sep 2026.
+Abrir <b>estrategias-aysa.md</b> para el análisis completo (risks, TCO, gobernanza, stakeholders, apéndice técnico).
+Basado en frameworks de AI business case (Alice Labs, CTAIO, TheProductionLine, Slideworks).
+</div>
+
+</body>
+</html>

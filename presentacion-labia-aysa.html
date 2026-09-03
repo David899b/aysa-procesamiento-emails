@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>labIA Concentrix · Aysa — Casilla de Email de Clasificación</title>
+<style>
+  :root {
+    --bg:#070b14; --bg2:#0b1220; --card:#101a2c; --card2:#16233a;
+    --line:#1f3050; --txt:#eaf1fb; --muted:#8ba3c7; --dim:#5c7399;
+    --acc:#2fd0ff; --acc2:#7d8bff; --good:#2fd39a; --warn:#ffc75e; --bad:#ff6b8b;
+    --grad:linear-gradient(135deg,#2fd0ff,#7d8bff);
+    --shadow:0 20px 50px rgba(0,0,0,.45);
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html,body { height:100%; }
+  body { background:#06090f; color:var(--txt); font-family:'Segoe UI',-apple-system,Roboto,Helvetica,Arial,sans-serif; overflow:hidden; }
+  /* ---------- backdrop grid / glow ---------- */
+  .bgfx { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+  .bgfx::before { content:""; position:absolute; inset:0;
+    background-image:linear-gradient(rgba(47,208,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(47,208,255,.05) 1px,transparent 1px);
+    background-size:56px 56px; mask-image:radial-gradient(circle at 50% 40%,#000 0%,transparent 75%); }
+  .bgfx .glow1 { position:absolute; top:-20%; left:-10%; width:60vw; height:60vw; background:radial-gradient(circle,rgba(47,208,255,.18),transparent 65%); filter:blur(10px); border-radius:50%; }
+  .bgfx .glow2 { position:absolute; bottom:-25%; right:-10%; width:70vw; height:70vw; background:radial-gradient(circle,rgba(125,139,255,.16),transparent 65%); filter:blur(10px); border-radius:50%; }
+
+  /* ---------- deck ---------- */
+  .deck { position:relative; z-index:1; height:100vh; width:100%; }
+  .slide { position:absolute; inset:0; padding:5.5vh 6vw; opacity:0; transform:translateX(40px) scale(.985); pointer-events:none;
+    transition:opacity .5s ease, transform .55s cubic-bezier(.16,1,.3,1); overflow:hidden; }
+  .slide.active { opacity:1; transform:none; pointer-events:auto; }
+  .slide.n-enter { transform:translateX(40px) scale(.985); }
+  .slide.p-enter { transform:translateX(-40px) scale(.985); }
+
+  /* ---------- progress rail ---------- */
+  .topbar { position:fixed; top:0; left:0; right:0; z-index:30; display:flex; align-items:center; gap:18px; padding:16px 28px; font-size:.78rem; color:var(--muted); }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.5px; color:var(--txt); }
+  .brand .dot { width:11px; height:11px; border-radius:4px; background:var(--grad); box-shadow:0 0 14px rgba(47,208,255,.7); }
+  .brand .sub { color:var(--dim); font-weight:500; }
+  .rail { flex:1; height:3px; background:var(--line); border-radius:3px; overflow:hidden; }
+  .rail i { display:block; height:100%; background:var(--grad); width:0; transition:width .4s ease; }
+  .stepper { display:flex; gap:4px; }
+  .stepper span { width:4px; height:14px; border-radius:3px; background:var(--line); transition:background .3s; }
+  .stepper span.on { background:var(--acc); }
+
+  /* ---------- typography ---------- */
+  .kicker { font-size:.72rem; letter-spacing:2.5px; text-transform:uppercase; color:var(--acc); font-weight:700; margin-bottom:14px; }
+  h1 { font-size:clamp(2.6rem,6vw,4.6rem); line-height:1.02; font-weight:800; letter-spacing:-1px; }
+  h1 .grad { background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  h2 { font-size:clamp(1.8rem,3.6vw,2.9rem); font-weight:800; letter-spacing:-.5px; line-height:1.08; }
+  h3 { font-size:1.15rem; font-weight:700; }
+  p.lead { font-size:clamp(1rem,1.6vw,1.3rem); color:var(--muted); line-height:1.6; }
+  p.body { font-size:1rem; color:var(--muted); line-height:1.65; }
+
+  /* ---------- components ---------- */
+  .grid { display:grid; gap:18px; }
+  .cols2 { grid-template-columns:1fr 1fr; }
+  .cols3 { grid-template-columns:repeat(3,1fr); }
+  .cols4 { grid-template-columns:repeat(4,1fr); }
+  .card { background:linear-gradient(160deg,var(--card),var(--bg2)); border:1px solid var(--line); border-radius:18px; padding:22px; box-shadow:var(--shadow); }
+  .card.hover { transition:transform .3s,border-color .3s; }
+  .card.hover:hover { transform:translateY(-6px); border-color:var(--acc); }
+  .num { font-size:2rem; font-weight:800; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .num.sm { font-size:1.5rem; }
+  .label { color:var(--dim); font-size:.78rem; text-transform:uppercase; letter-spacing:1px; font-weight:600; margin-bottom:6px; }
+  .pill { display:inline-block; padding:3px 12px; border-radius:30px; font-size:.72rem; font-weight:700; }
+  .p-good{background:rgba(47,211,154,.14);color:var(--good);} .p-warn{background:rgba(255,199,94,.14);color:var(--warn);} .p-bad{background:rgba(255,107,139,.14);color:var(--bad);} .p-acc{background:rgba(47,208,255,.14);color:var(--acc);}
+  .table { width:100%; border-collapse:collapse; font-size:.88rem; }
+  .table th { text-align:left; color:var(--dim); font-size:.7rem; text-transform:uppercase; letter-spacing:1px; padding:10px 12px; border-bottom:1px solid var(--line); }
+  .table td { padding:11px 12px; border-bottom:1px solid rgba(31,48,80,.5); }
+  .table tr:hover td { background:rgba(47,208,255,.04); }
+  .mono { font-family:'SF Mono',Menlo,Consolas,monospace; color:var(--acc); font-size:.85rem; }
+  .barwrap { height:10px; background:var(--card2); border-radius:8px; overflow:hidden; }
+  .bar { height:100%; border-radius:8px; background:var(--grad); }
+  .divider { height:1px; background:var(--line); margin:20px 0; }
+  .flow { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .flow .step { background:var(--card2); border:1px solid var(--line); border-radius:10px; padding:7px 13px; font-size:.8rem; font-weight:600; }
+  .flow .step.hot { border-color:var(--acc); color:var(--acc); }
+  .flow .arr { color:var(--acc); font-weight:700; }
+
+  /* ---------- buttons / controls ---------- */
+  .btn { position:fixed; bottom:26px; z-index:30; width:50px; height:50px; border-radius:50%; border:1px solid var(--line);
+    background:rgba(16,26,44,.7); color:var(--txt); font-size:1.3rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition:all .25s; backdrop-filter:blur(8px); }
+  .btn:hover { background:var(--acc); border-color:var(--acc); color:#06101a; box-shadow:0 0 20px rgba(47,208,255,.5); }
+  .btn.prev { left:26px; }
+  .btn.next { right:26px; }
+  .counter { position:fixed; bottom:34px; left:50%; transform:translateX(-50%); z-index:30; font-size:.78rem; color:var(--dim); letter-spacing:1px; }
+  .keys { position:fixed; bottom:8px; right:16px; z-index:30; font-size:.68rem; color:var(--dim); }
+
+  .section-title { font-size:3.2rem; font-weight:800; letter-spacing:-1px; }
+  .bigline { font-size:1.2rem; color:var(--muted); max-width:820px; line-height:1.6; }
+  .glass { background:rgba(16,26,44,.55); border:1px solid var(--line); border-radius:20px; backdrop-filter:blur(12px); box-shadow:var(--shadow); }
+  .foot { position:absolute; bottom:2vh; font-size:.72rem; color:var(--dim); }
+
+  /* callout */
+  .callout { display:flex; gap:14px; align-items:flex-start; background:var(--card); border:1px solid var(--line); border-left:4px solid var(--good); border-radius:14px; padding:18px 20px; margin-top:20px; }
+  .callout.acc { border-left-color:var(--acc); } .callout.warn { border-left-color:var(--warn); }
+  .callout .ico { font-size:1.5rem; }
+  .callout b { color:var(--txt); }
+</style>
+</head>
+<body>
+<div class="bgfx"><div class="glow1"></div><div class="glow2"></div></div>
+
+<!-- top bar -->
+<div class="topbar">
+  <div class="brand"><span class="dot"></span>labIA <span class="sub">· Concentrix</span></div>
+  <div class="rail"><i id="railFill"></i></div>
+  <div class="stepper" id="stepper"></div>
+</div>
+
+<div class="deck" id="deck"></div>
+
+<div class="counter" id="counter"></div>
+<button class="btn prev" onclick="nav(-1)">‹</button>
+<button class="btn next" onclick="nav(1)">›</button>
+<div class="keys">← → navegar · F = fullscreen</div>
+
+<script>
+const SLIDES = [
+/* 1 PORTADA */
+()=>`
+<div class="grid cols2" style="align-items:center;height:100%;">
+  <div>
+    <div class="kicker">labIA · Concentrix · Propuesta de Solución IA</div>
+    <h1>Casilla de Email<br>de <span class="grad">Clasificación</span></h1>
+    <p class="lead" style="margin-top:22px;">Procesamiento de ~23.000 emails de campañas, validación de identidad de cuentas y generación de data accionable — con IA, trazabilidad y control humano.</p>
+    <div class="flow" style="margin-top:30px;">
+      <span class="step hot">Ingesta</span><span class="arr">→</span>
+      <span class="step">Clasificación IA</span><span class="arr">→</span>
+      <span class="step">Verificación Identidad</span><span class="arr">→</span>
+      <span class="step">CRM + Marketing</span>
+    </div>
+  </div>
+  <div class="grid cols2">
+    <div class="card hover"><div class="num">23.000</div><div class="label">Emails en la casilla</div></div>
+    <div class="card hover"><div class="num">4d→&lt;1d</div><div class="label">Meta de resolución</div></div>
+    <div class="card hover"><div class="num">5</div><div class="label">Estrategias evaluadas</div></div>
+    <div class="card hover"><div class="num">6–12m</div><div class="label">Payback estimado</div></div>
+  </div>
+</div>
+<p class="foot">Proyecto labIA · Cliente Aysa · Documento de decisión — 2 Sep 2026</p>`,
+
+
+
+/* 3 PROBLEMA */
+()=>`<div class="kicker">01 · El problema</div><h2>Respuestas manuales que no escalan</h2>
+<p class="lead" style="margin:16px 0 26px;">La casilla de email de clasificación recibe respuestas de múltiples campañas. Cada una requiere identificar campaña, cuenta y la voluntad del usuario — hoy a mano.</p>
+<div class="grid cols4">
+  <div class="card hover"><div class="num">23.000</div><div class="label">Emails totales</div></div>
+  <div class="card hover"><div class="num">~70%</div><div class="label">Útiles tras filtrar ruido</div></div>
+  <div class="card hover"><div class="num">4–8m</div><div class="label">Tiempo manual / email</div></div>
+  <div class="card hover"><div class="num">+1.100h</div><div class="label">Horas-hombre al año</div></div>
+</div>
+<div class="callout warn" style="margin-top:22px;"><span class="ico">⚠️</span><div><b>El costo de no hacer nada:</b> procesamiento lento, errores de identidad (fraude/reclamos) y exposición regulatoria según la Ley 25.326 de Protección de Datos Personales de Argentina. La data de campañas queda sin explotar para Marketing.</div></div>
+<p class="foot">Baseline cuantificado — referencia a calibrar con datos reales de Aysa.</p>`,
+
+/* 4 BUILD VS BUY */
+()=>`<div class="kicker">02 · Justificación de la IA</div><h2>¿Por qué IA? ¿Comprar o construir?</h2>
+<div class="grid cols2" style="margin-top:28px;">
+  <div class="card glass">
+    <h3 style="margin-bottom:12px;">Alternativas descartadas</h3>
+    ${[["Proceso manual / +staff","No escala · caro · propenso a error"],["Solo reglas / RPA","Falla en intención libre y en extracción de identidad"],["SaaS de email triage","No valida identidad con la fuente de verdad propia de Aysa"]].map(([a,b])=>`<div style="padding:8px 0;border-bottom:1px solid var(--line);"><b>${a}</b><div class="body" style="font-size:.9rem;">${b}</div></div>`).join('')}
+  </div>
+  <div class="card" style="border-color:var(--acc);">
+    <h3 style="margin-bottom:12px;color:var(--acc);">Por qué IA es lo correcto</h3>
+    <div class="grid cols2" style="gap:14px;">
+      <div class="card"><span class="num sm">100%</span><div class="label">escalable a volumen</div></div>
+      <div class="card"><span class="num sm">○</span><div class="label">captura intención libre</div></div>
+      <div class="card"><span class="num sm">◎</span><div class="label">ancla en fuente de verdad</div></div>
+      <div class="card"><span class="num sm">§</span><div class="label">auditable y trazable</div></div>
+    </div>
+    <p class="body" style="margin-top:14px;font-size:.9rem;"><b>Veredicto:</b> <span class="pill p-acc">Build</span> sobre modelo fundacion — la validación de identidad con la BBDD propia de Aysa no la ofrece un SaaS genérico.</p>
+  </div>
+</div>`,
+
+/* 5 PIPELINE */
+()=>`<div class="kicker">03 · La solución</div><h2>Pipeline de 4 etapas</h2>
+<div class="grid" style="margin-top:26px;">
+  ${[
+    ["1 · Ingesta & limpieza","Determinístico, SIN IA — resuelve el ~70% del volumen","Metadatos · dedupe por hilo · filtro de spam/out-of-office/bounce · detección de adjuntos → OCR","det"],
+    ["2 · Clasificación & extracción","LLM clasifica tipo, campaña y extrae campos de identidad","[CONFIRMA] [RECHAZA] [NO_ES_MIA] [DUDA] [OPTOUT] [IRRELEVANTE] · n.º servicio, nombre, DNIS, dirección","llm"],
+    ["3 · Verificación de identidad","CRUCE con la fuente de verdad de Aysa — corazón del caso","CONFIRMADA · RECHAZADA · REQUIERE_HUMANO según umbral de confianza","hot"],
+    ["4 · Acción & salida","Abre/cierra casos, responde con plantilla, genera data","CRM · respuesta automática · dataset por campaña para Marketing","out"]
+  ].map(([t,d,sub,type],i)=>`<div class="card" style="position:relative;padding:26px;">
+      <div class="numsm" style="position:absolute;top:-14px;left:18px;background:var(--grad);color:#06101a;font-weight:800;border-radius:10px;padding:4px 12px;">${i+1}</div>
+      <h3 style="margin:4px 0 8px;">${t}</h3>
+      <p class="body" style="font-size:.95rem;">${d}</p>
+      <div class="mono" style="margin-top:12px;font-size:.78rem;">${sub}</div></div>`).join('')}
+</div>
+<div class="callout acc" style="margin-top:22px;"><span class="ico">🧭</span><div><b>Regla de oro:</b> el LLM solo <i>extrae</i> e <i>interpreta</i>. La cuenta se <b>confirma o rechaza por cruce con la fuente de verdad</b> — nunca por lo que "dice" un modelo. Así se previene fraude y suplantación.</div></div>`,
+
+/* 6 ESTRATEGIAS — overview + comparativa */
+()=>`<div class="kicker">03 · Estrategias</div><h2 style="margin-bottom:20px;">5 caminos, 1 destino: <span class="grad">Enterprise</span></h2>
+<div class="grid" style="gap:14px;margin-bottom:22px;">
+  <div class="flow" style="font-size:.95rem;">
+    <span class="step">E1 · MVP (entrada)</span><span class="arr">➜</span>
+    <span class="step">E2 · Triage</span><span class="arr">➜</span>
+    <span class="step">E3 · OCR</span><span class="arr">➜</span>
+    <span class="step">E4 · Data/BI</span><span class="arr">➜</span>
+    <span class="step hot">E5 · ENTERPRISE (destino)</span>
+  </div>
+</div>
+<div style="overflow:auto;max-height:48vh;">
+<table class="table">
+  <thead><tr><th>#</th><th>Estrategia</th><th>Costo ARS / lote</th><th>Set-up</th><th>Equipo</th><th>Madurez</th></tr></thead>
+  <tbody>
+    ${[
+      ["1","Filtro det. + Solo Identidad","12K / 21K / 30K","4–6 sem","2 PT",'<span class="pill p-good">Entrada</span>'],
+      ["2","Triage LLM + Human-in-loop","120K / 172K / 225K","8–10 sem","3",'<span class="pill p-warn">Núcleo</span>'],
+      ["3","OCR + Identidad","165K / 240K / 315K","10–12 sem","4",'<span class="pill p-warn">Componente</span>'],
+      ["4","Clustering + Campañas","128K / 183K / 240K","9–11 sem","3",'<span class="pill p-warn">BI</span>'],
+      ["5","Orquestación Completa","270K / 375K / 480K","14–18 sem","5–6",'<span class="pill p-bad">★ Enterprise</span>']
+    ].map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td class="mono">${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td></tr>`).join('')}
+  </tbody>
+</table>
+</div>
+<p class="body" style="margin-top:10px;font-size:.82rem;color:var(--dim);">ARS con K (ej. 21K = ARS 21.000) · pesimista / base / optimista · ref. 1 USD ≈ 1.500 ARS · Desde la escala de Aysa, el destino es E5.</p>`,
+
+/* 7 E1 */
+strategyCard(1,"Filtro Determinístico + Solo Identidad","Puerta de entrada — no el destino","Sin IA en el grueso. Reglas determinísticas resuelven campaña, tipo, spam y dedupe. El LLM solo extrae los campos de identidad y se cruza con la base. **Validar la tasa real de confirmación/rechazo con mínimo riesgo antes de escalar al enterprise.**",["Qwen2.5:14b","gpt-5-mini"],["12","21","30"],"4–6 semanas","1–2 días","Bajo","2 PT",["Costo casi nulo","Rápido de construir","Valida el proceso antes del enterprise"],["No captura intención libre","Clasificación rígida","Sin feedback en tiempo real"],"low"),
+/* 8 E5 */
+strategyCard(5,"Orquestación Completa (CRM + BI)","Full enterprise — EL DESTINO","Todo integrado: ingestión schedulada, OCR, triage, verificación de identidad en tiempo real, CRM, respuestas automáticas y dashboard en vivo por campaña. La solución de plataforma que merece un cliente de la escala de Aysa.",["Full stack multi-modal","Qwen2.5-VL / gpt-5-mini"],["270","375","480"],"14–18 semanas","5–8 días","Alto","5–6",["Punta a punta automatizado","Dashboard en vivo","Escalable a más volumen y campañas"],["El más caro","Alto mantenimiento","Requiere equipo dedicado de operación"],"high"),
+
+/* 9 FINANCIERO */
+()=>`<div class="kicker">05 · Financiero</div><h2 style="margin-bottom:22px;">Costo y retorno en 3 escenarios</h2>
+<div class="grid cols2">
+  <div class="card">
+    <div class="label">Costo por lote (ARS, K) — barra = base</div>
+    ${[["E1",21,6],["E2",172,40],["E3",240,54],["E4",183,42],["E5",375,82]].map(([n,v,w])=>`<div style="margin:12px 0;"><div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:5px;"><span>${n}</span><b>${v}K</b></div><div class="barwrap"><div class="bar" style="width:${w}%"></div></div></div>`).join('')}
+    <p class="body" style="font-size:.8rem;color:var(--dim);margin-top:10px;">Costo por lote evita el costo unitario por token.</p>
+  </div>
+  <div class="card">
+    <div class="label">TCO 3 años (Estrategia 5 · enterprise)</div>
+    ${[["Infraestructura (compute/API)","ARS 7–22M / año"],["Integración y desarrollo","ARS 30–60M"],["Talento y entrenamiento","ARS 15–37M"],["Gestión del cambio","5–15% extra"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);"><span>${a}</span><b class="mono">${b}</b></div>`).join('')}
+    <div class="callout" style="margin-top:14px;"><span class="ico">💰</span><div><b>Contingencia mínima 25%:</b> la preparación de datos y el cambio de proceso suelen ser 40–60% del costo real y casi siempre se subestiman.</div></div>
+  </div>
+</div>
+<div class="grid cols4" style="margin-top:18px;">
+  ${[["Payback base","6–12 meses"],["ROI pesimista","positivo → robusto"],["NPV 3 años (8–12%)","positivo"],["Inversión piloto H1","ARS 12–30M"]].map(([a,b])=>`<div class="card"><div class="label">${a}</div><div class="num sm">${b}</div></div>`).join('')}
+</div>`,
+
+/* 14 RIESGOS */
+()=>`<div class="kicker">06 · Riesgos</div><h2 style="margin-bottom:22px;">Registro de riesgos</h2>
+<div style="overflow:auto;max-height:70vh;">
+<table class="table">
+  <thead><tr><th>#</th><th>Riesgo</th><th>Prob.</th><th>Imp.</th><th>Mitigación</th></tr></thead>
+  <tbody>
+    ${[
+      ["R1","Confirmación identidad errónea (fraude)",'<span class="pill p-warn">Med</span>','<span class="pill p-bad">Alto</span>','Nunca confirmar solo por LLM · cruzar con fuente de verdad'],
+      ["R2","Incumplimiento Ley 25.326 (PII a nube)",'<span class="pill p-warn">Med</span>','<span class="pill p-bad">Alto</span>','Self-host si PII · DPA si cloud · retención'],
+      ["R3","Alucinación del LLM en extracción",'<span class="pill p-warn">Med</span>','<span class="pill p-warn">Med</span>','Juez de validación + schema + golden set'],
+      ["R4","Opt-out / baja no respetado",'<span class="pill p-good">Baj</span>','<span class="pill p-bad">Alto</span>','Priorizar [OPTOUT], nunca postergar'],
+      ["R5","Formatos de factura cambian (OCR)",'<span class="pill p-warn">Med</span>','<span class="pill p-warn">Med</span>','Templates/benchmarks OCR, re-ajuste'],
+      ["R6","Sobre-costo en tókenes",'<span class="pill p-warn">Med</span>','<span class="pill p-warn">Med</span>','Filtro determinístico primero (70% sin LLM)'],
+      ["R7","Adopción / dip de productividad",'<span class="pill p-warn">Med</span>','<span class="pill p-warn">Med</span>','Gestión del cambio, quick wins 90 días'],
+      ["R8","Dependencia de proveedor LLM",'<span class="pill p-warn">Med</span>','<span class="pill p-warn">Med</span>','Capa de abstracción de modelo, self-host']
+    ].map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join('')}
+  </tbody>
+</table>
+</div>
+<p class="foot">Cada riesgo con probabilidad, impacto y mitigación · Formato risk register (no párrafos).</p>`,
+
+/* 15 ROADMAP */
+()=>`<div class="kicker">07 · Roadmap</div><h2 style="margin-bottom:26px;">3 horizontes con go / no-go</h2>
+<div class="grid cols3" style="gap:16px;">
+  ${[
+    ["H1 · Quick Wins","0–6 meses",'<span class="pill p-acc">Aprueba ahora</span>',"Puerta de entrada (E1) + golden set + medir tasa real de confirmación/rechazo","ARS 12–30M"],
+    ["H2 · Escala","6–18 meses",'<span class="pill p-warn">Contexto</span>',"Expandir a E2/E3 (human-in-loop, OCR) + gobernanza/ops","ARS 30–75M"],
+    ["H3 · Enterprise","18–36 meses",'<span class="pill p-warn">Destino</span>',"E4/E5 (data campañas + dashboard en vivo + CRM full) — la plataforma que merece Aysa","ARS 67–135M"]
+  ].map(([t,time,tag,d,inv])=>`<div class="card" style="display:flex;flex-direction:column;">
+      <div style="display:flex;justify-content:space-between;align-items:center;"><b>${t}</b><span class="pill p-acc" style="background:none;border:1px solid var(--acc);">${time}</span></div>
+      <div style="margin:10px 0;">${tag}</div>
+      <p class="body" style="font-size:.9rem;flex:1;">${d}</p>
+      <div class="divider"></div>
+      <div style="text-align:center;"><span class="mono">${inv}</span></div></div>`).join('')}
+</div>
+<div class="callout acc" style="margin-top:22px;"><span class="ico">🎯</span><div><b>Principio "shrink the ask":</b> se aprueba solo H1. Si el piloto no supera el go/no-go, se cierra con una pérdida acotada al presupuesto del piloto. Riesgo total limitado.</div></div>`,
+
+/* 11 GOBERNANZA + METRICAS */
+()=>`<div class="kicker">07 · Gobernanza & Métricas</div><h2 style="margin-bottom:22px;">Quién decide, qué mide</h2>
+<div class="grid cols2">
+  <div class="card">
+    <div class="label">Roles de gobernanza</div>
+    ${[["Business Sponsor","Gerencia Operaciones/Marketing"],["Technical Sponsor","CIO / CTO"],["Finance co-author","Finanzas"],["Compliance owner","Legal / CISO / DPO · Ley 25.326"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:.88rem;"><b>${a}</b><span style="color:var(--muted);">${b}</span></div>`).join('')}
+    <div class="divider" style="margin:12px 0;"></div>
+    <div class="label">Go / No-Go del piloto</div>
+    ${[["Precisión clasificación","≥ 90%"],["Precisión extracción identidad","≥ 95%"],["Derivación a humano","< 30%"],["Payback piloto","< 6 meses"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(31,48,80,.4);font-size:.85rem;"><span>${a}</span><b class="mono">${b}</b></div>`).join('')}
+  </div>
+  <div class="card">
+    <div class="label">A cada stakeholder, lo que le importa</div>
+    ${[["CFO","Cash flow · payback · ROI/NPV · escenarios"],["CIO/CTO","Factibilidad · integración CRM/BBDD · seguridad"],["CEO","Valor de negocio · evitar multas · ventaja"],["Marketing","Data por campaña: % confirmación, rechazo, opt-out"]].map(([a,b])=>`<div style="display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);align-items:flex-start;font-size:.88rem;"><b style="min-width:80px;">${a}</b><span style="color:var(--muted);">${b}</span></div>`).join('')}
+    <div class="divider" style="margin:12px 0;"></div>
+    <div class="label">Kill criteria (cortar si…)</div>
+    ${[["Time-to-value","retraso > 6 meses"],["Adopción","> 50% bajo lo previsto"],["Costo operativo","> 3× el modelo del piloto"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(31,48,80,.4);font-size:.85rem;"><span>${a}</span><b class="mono" style="color:var(--warn);">${b}</b></div>`).join('')}
+  </div>
+</div>`,
+
+/* 12 Q&A */
+()=>`<div style="display:flex;flex-direction:column;justify-content:center;height:100%;text-align:center;">
+  <h2 style="font-size:clamp(3rem,7vw,5.5rem);">¿<span class="grad">Preguntas</span>?</h2>
+  <p class="lead" style="margin-top:24px;max-width:700px;margin-left:auto;margin-right:auto;">Gracias por su tiempo. labIA · Concentrix — listos para validar con datos reales de Aysa y avanzar en el piloto.</p>
+  <div class="grid cols3" style="margin-top:40px;max-width:800px;margin-left:auto;margin-right:auto;">
+    <div class="card"><div class="label">Próximo paso</div><div class="body" style="font-size:.95rem;">Resolver self-host vs cloud + fuente de verdad</div></div>
+    <div class="card"><div class="label">Piloto</div><div class="body" style="font-size:.95rem;">E1 · 4–6 sem · ARS 12–30M</div></div>
+    <div class="card"><div class="label">Contacto</div><div class="body" style="font-size:.95rem;">labIA · Concentrix</div></div>
+  </div>
+</div>`
+];
+
+/* estrategia card helper */
+function strategyCard(n,tag,subtitle,desc,models,cost,setup,lot,maintain,team,pros,cons,risk){
+  return ()=>`
+  <div class="kicker">04 · Estrategia ${n}</div>
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+    <div><h2>${tag}</h2><p class="lead" style="margin-top:8px;">${subtitle}</p></div>
+    <div style="text-align:right;"><span class="pill ${risk==='low'?'p-good':risk==='high'?'p-bad':'p-warn'}">${risk==='low'?'Bajo':risk==='high'?'Alto':'Medio'} riesgo</span></div>
+  </div>
+  <p class="body" style="margin:18px 0;max-width:820px;">${desc}</p>
+  <div class="grid cols4">
+    <div class="card"><div class="label">Modelos</div><div class="body" style="font-size:.9rem;">${models.join('<br>')}</div></div>
+    <div class="card"><div class="label">Costo ARS / lote</div><div class="mono" style="font-size:1.2rem;">${cost[0]}K · ${cost[1]}K · ${cost[2]}K</div><div class="label" style="margin-top:8px;">pesimista · base · optimista (ARS)</div></div>
+    <div class="card"><div class="label">Set-up</div><div class="num sm">${setup}</div></div>
+    <div class="card"><div class="label">Por lote (23k)</div><div class="num sm">${lot}</div></div>
+  </div>
+  <div class="grid cols2" style="margin-top:18px;">
+    <div class="card"><div class="label">✔ Pros</div>${pros.map(p=>`<div style="padding:6px 0;font-size:.92rem;">· ${p}</div>`).join('')}</div>
+    <div class="card"><div class="label">✘ Contras</div>${cons.map(c=>`<div style="padding:6px 0;font-size:.92rem;color:var(--warn);">· ${c}</div>`).join('')}</div>
+  </div>
+  <div class="grid cols4" style="margin-top:16px;">
+    <div class="card"><div class="label">Mantenimiento</div><div class="body" style="font-size:.92rem;">${maintain}</div></div>
+    <div class="card"><div class="label">Equipo</div><div class="body" style="font-size:.92rem;">${team}</div></div>
+    <div class="card col2"><div class="label">Workflow</div><div class="body" style="font-size:.85rem;color:var(--muted);">${({1:'Ingesta → reglas → extracción → cruce BBDD → caso/CSV',2:'Ingesta → LLM → juez+cruce → humano → caso/data',3:'adjuntos→OCR → triage → cruce → caso',4:'triage → embeddings → dataset campaña → BI',5:'CRON → OCR+emb → verificación → CRM → dashboard'})[n]||''}</div></div>
+  </div>`;
+}
+
+/* ---------- deck engine ---------- */
+const deck = document.getElementById('deck');
+let cur = 0, dir = 0;
+function build(){
+  // stepper dots
+  const st = document.getElementById('stepper');
+  st.innerHTML = SLIDES.map(()=>`<span></span>`).join('');
+}
+function render(idx){
+  const s = document.createElement('section');
+  s.className = 'slide';
+  s.innerHTML = SLIDES[idx]();
+  deck.appendChild(s);
+  requestAnimationFrame(()=>{ s.classList.add('active'); });
+  return s;
+}
+function removeOthers(idx){
+  [...deck.children].forEach((el,i)=>{ if(i!==idx) el.remove(); });
+}
+function nav(d){
+  const next = cur + d;
+  if(next<0||next>=SLIDES.length) return;
+  dir = d; cur = next;
+  const prev = deck.children[0];
+  if(prev) prev.classList.remove('active');
+  // always re-render single slide for simplicity
+  deck.innerHTML='';
+  render(cur);
+  updateUI();
+}
+function updateUI(){
+  document.getElementById('counter').textContent = `${cur+1} / ${SLIDES.length}`;
+  document.getElementById('railFill').style.width = ((cur+1)/SLIDES.length*100)+'%';
+  const dots=[...document.querySelectorAll('#stepper span')];
+  dots.forEach((d,i)=> d.classList.toggle('on', i<=cur));
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ') nav(1);
+  else if(e.key==='ArrowLeft') nav(-1);
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+});
+build();
+render(0);
+updateUI();
+</script>
+</body>
+</html>
