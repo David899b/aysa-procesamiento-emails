@@ -8,10 +8,9 @@ const css = styleMatch ? styleMatch[1] : '';
 
 // Capturar el array SLIDES (funciones)
 const slStart = html.indexOf('const SLIDES = [');
-const slEndMarker = '];\n\n/* estrategia card helper */';
-const slEnd = html.indexOf(slEndMarker);
+const slEnd = html.indexOf('\n];\n', slStart);
 if (slStart === -1 || slEnd === -1) { console.error('No se pudo localizar SLIDES'); process.exit(1); }
-const slidesBlock = html.slice(slStart, slEnd + 2); // incluye '];'
+const slidesBlock = html.slice(slStart, slEnd + 3); // incluye '\n];'
 
 // Capturar el helper strategyCard y deck engine no necesario; solo necesitamos SLIDES + strategyCard + el objeto workflow inline
 // strategyCard se define más abajo en el script; extraeremos la función strategyCard

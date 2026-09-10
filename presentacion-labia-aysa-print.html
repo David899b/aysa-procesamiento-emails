@@ -69,8 +69,6 @@
   .table td { padding:11px 12px; border-bottom:1px solid rgba(31,48,80,.5); }
   .table tr:hover td { background:rgba(47,208,255,.04); }
   .mono { font-family:'SF Mono',Menlo,Consolas,monospace; color:var(--acc); font-size:.85rem; }
-  .barwrap { height:10px; background:var(--card2); border-radius:8px; overflow:hidden; }
-  .bar { height:100%; border-radius:8px; background:var(--grad); }
   .divider { height:1px; background:var(--line); margin:20px 0; }
   .flow { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
   .flow .step { background:var(--card2); border:1px solid var(--line); border-radius:10px; padding:7px 13px; font-size:.8rem; font-weight:600; }
@@ -125,242 +123,286 @@ const SLIDES = [
 ()=>`
 <div class="grid cols2" style="align-items:center;height:100%;">
   <div>
-    <div class="kicker">labIA · Concentrix · Propuesta de Solución IA</div>
-    <h1>Casilla de Email<br>de <span class="grad">Clasificación</span></h1>
-    <p class="lead" style="margin-top:22px;">Procesamiento de ~23.000 emails de campañas, validación de identidad de cuentas y generación de data accionable — con IA, trazabilidad y control humano.</p>
+    <div class="kicker">labIA · Concentrix · Iniciativa de Calidad de Datos</div>
+    <h1>Datos de Contacto<br>de <span class="grad">Campañas</span></h1>
+    <p class="lead" style="margin-top:22px;">Detectar inconsistencias en los datos de contacto usados en campañas de comunicación, generar datasets y evidencias para las <b>áreas de negocio</b>, y alimentar la mejora de los procesos de origen. Presentamos un camino acotado (<b>MVP</b>) y una opción de evolución (<b>Enterprise</b>) para cuando el negocio lo requiera.</p>
     <div class="flow" style="margin-top:30px;">
-      <span class="step hot">Ingesta</span><span class="arr">→</span>
-      <span class="step">Clasificación IA</span><span class="arr">→</span>
-      <span class="step">Verificación Identidad</span><span class="arr">→</span>
-      <span class="step">CRM + Marketing</span>
+      <span class="step hot">Casilla Exchange</span><span class="arr">→</span>
+      <span class="step">Clasificación y extracción</span><span class="arr">→</span>
+      <span class="step">Fuente corporativa</span><span class="arr">→</span>
+      <span class="step">Datasets + Evidencias</span>
     </div>
   </div>
   <div class="grid cols2">
-    <div class="card hover"><div class="num">23.000</div><div class="label">Emails en la casilla</div></div>
-    <div class="card hover"><div class="num">4d→&lt;1d</div><div class="label">Meta de resolución</div></div>
-    <div class="card hover"><div class="num">5</div><div class="label">Estrategias evaluadas</div></div>
-    <div class="card hover"><div class="num">6–12m</div><div class="label">Payback estimado</div></div>
+    <div class="card hover"><div class="num">~60K</div><div class="label">Emails históricos</div></div>
+    <div class="card hover"><div class="num">Texto</div><div class="label">Contenido principal</div></div>
+    <div class="card hover"><div class="num">Evidencia</div><div class="label">No decide: sustenta</div></div>
+    <div class="card hover"><div class="num">8–12 sem</div><div class="label">MVP · piloto</div></div>
   </div>
 </div>
-<p class="foot">Proyecto labIA · Cliente Aysa · Documento de decisión — 2 Sep 2026</p>`,
+<p class="foot">Proyecto labIA · Cliente Aysa · Documento de decisión — 8 Sep 2026</p>`,
 
 /* 2 AGENDA */
 ()=>`<div class="kicker">Navegación</div><h2 style="margin-bottom:30px;">Agenda de la presentación</h2>
 <div class="grid cols2">
-  ${["01 · El problema y su costo","02 · Por qué IA (build vs buy)","03 · La solución · pipeline","04 · Las 5 estrategias","05 · Análisis financiero · 3 escenarios","06 · Registro de riesgos","07 · Roadmap en 3 horizontes","08 · Gobernanza & stakeholders","09 · Métricas y cierre"].map((t,i)=>`<div class="card hover" style="display:flex;gap:16px;align-items:center;"><span class="num sm" style="width:70px;">${String(i+1).padStart(2,'0')}</span><span style="font-size:1.05rem;font-weight:600;">${t.replace(/^\d+\s·\s/,'')}</span></div>`).join('')}
+  ${["01 · El contexto y el problema de negocio","02 · El objetivo: datos de contacto confiables","03 · Rol de la solución","04 · Arquitectura propuesta","05 · La propuesta MVP · plan semana a semana","06 · La opción Enterprise","07 · Modelos de IA","08 · Riesgos, métricas y go/no-go","09 · Equipo, preguntas y cierre"].map((t,i)=>`<div class="card hover" style="display:flex;gap:16px;align-items:center;"><span class="num sm" style="width:70px;">${String(i+1).padStart(2,'0')}</span><span style="font-size:1.05rem;font-weight:600;">${t.replace(/^\d+\s·\s/,'')}</span></div>`).join('')}
 </div>`,
 
-/* 3 PROBLEMA */
-()=>`<div class="kicker">01 · El problema</div><h2>Respuestas manuales que no escalan</h2>
-<p class="lead" style="margin:16px 0 26px;">La casilla de email de clasificación recibe respuestas de múltiples campañas. Cada una requiere identificar campaña, cuenta y la voluntad del usuario — hoy a mano.</p>
+/* 3 PROBLEMA DE NEGOCIO */
+()=>`<div class="kicker">01 · El problema</div><h2>Datos de contacto con inconsistencias</h2>
+<p class="lead" style="margin:16px 0 24px;">Las campañas se apoyan en <b>múltiples orígenes de datos</b> y en procesos manuales que pueden introducir errores. Hoy esos errores se detectan tarde — cuando el usuario responde "no es mi cuenta" — y no se sabe en qué paso se generaron.</p>
 <div class="grid cols4">
-  <div class="card hover"><div class="num">23.000</div><div class="label">Emails totales</div></div>
-  <div class="card hover"><div class="num">~70%</div><div class="label">Útiles tras filtrar ruido</div></div>
-  <div class="card hover"><div class="num">4–8m</div><div class="label">Tiempo manual / email</div></div>
-  <div class="card hover"><div class="num">+1.100h</div><div class="label">Horas-hombre al año</div></div>
+  <div class="card hover"><div class="num">Múltiples</div><div class="label">Orígenes de datos</div><p class="body" style="font-size:.82rem;margin-top:8px;">Campañas alimentadas desde distintas fuentes y formatos.</p></div>
+  <div class="card hover"><div class="num">Manual</div><div class="label">Procesos que introducen errores</div><p class="body" style="font-size:.82rem;margin-top:8px;">Carga y validación a mano, sin control de origen.</p></div>
+  <div class="card hover"><div class="num">"No es mía"</div><div class="label">Usuarios lo reportan</div><p class="body" style="font-size:.82rem;margin-top:8px;">El email no corresponde a la cuenta asociada en la campaña.</p></div>
+  <div class="card hover"><div class="num">Origen</div><div class="label">Sin identificar</div><p class="body" style="font-size:.82rem;margin-top:8px;">No se sabe dónde se generó el dato incorrecto.</p></div>
 </div>
-<div class="callout warn" style="margin-top:22px;"><span class="ico">⚠️</span><div><b>El costo de no hacer nada:</b> procesamiento lento, errores de identidad (fraude/reclamos) y exposición regulatoria según la Ley 25.326 de Protección de Datos Personales de Argentina. La data de campañas queda sin explotar para Marketing.</div></div>
-<p class="foot">Baseline cuantificado — referencia a calibrar con datos reales de Aysa.</p>`,
+<div class="callout acc" style="margin-top:22px;"><span class="ico">🎯</span><div><b>De qué trata esta propuesta:</b> "La solución permitirá detectar inconsistencias en los datos de contacto utilizados en campañas y generar insumos para que las áreas responsables puedan corregir los procesos de origen."</div></div>
+<p class="body" style="margin-top:14px;font-size:.85rem;color:var(--dim);">Entorno: la casilla vive en Exchange on-prem (red bajo Ley 25.326); la fuente de verdad es la base de datos relacional corporativa.</p>`,
 
-/* 4 BUILD VS BUY */
-()=>`<div class="kicker">02 · Justificación de la IA</div><h2>¿Por qué IA? ¿Comprar o construir?</h2>
-<div class="grid cols2" style="margin-top:28px;">
-  <div class="card glass">
-    <h3 style="margin-bottom:12px;">Alternativas descartadas</h3>
-    ${[["Proceso manual / +staff","No escala · caro · propenso a error"],["Solo reglas / RPA","Falla en intención libre y en extracción de identidad"],["SaaS de email triage","No valida identidad con la fuente de verdad propia de Aysa"]].map(([a,b])=>`<div style="padding:8px 0;border-bottom:1px solid var(--line);"><b>${a}</b><div class="body" style="font-size:.9rem;">${b}</div></div>`).join('')}
+/* 4 OBJETIVO */
+()=>`<div class="kicker">02 · El objetivo</div><h2 style="margin-bottom:24px;">Detectar inconsistencias y su origen</h2>
+<div class="grid cols2">
+  <div class="card">
+    <div class="label">Qué resolvemos</div>
+    <div style="padding:6px 0;font-size:.95rem;">· Clasificar cada email: <span class="mono" style="font-size:.8rem;">CONFIRMA · NO_ES_MIA · DUDOSO · OPTOUT · IRRELEVANTE</span></div>
+    <div style="padding:6px 0;font-size:.95rem;">· Extraer los campos clave: <b>email · cuenta/contrato · nombre y apellido · dirección · teléfono · documento y tipo · relación con el titular · titular</b></div>
+    <div style="padding:6px 0;font-size:.95rem;">· Cruzar contra la <b>fuente de datos corporativa</b> y aportar evidencia.</div>
+    <div style="padding:6px 0;font-size:.95rem;">· Generar <b>datasets por campaña</b> para las áreas de negocio.</div>
   </div>
-  <div class="card" style="border-color:var(--acc);">
-    <h3 style="margin-bottom:12px;color:var(--acc);">Por qué IA es lo correcto</h3>
-    <div class="grid cols2" style="gap:14px;">
-      <div class="card"><span class="num sm">100%</span><div class="label">escalable a volumen</div></div>
-      <div class="card"><span class="num sm">○</span><div class="label">captura intención libre</div></div>
-      <div class="card"><span class="num sm">◎</span><div class="label">ancla en fuente de verdad</div></div>
-      <div class="card"><span class="num sm">§</span><div class="label">auditable y trazable</div></div>
+  <div class="card">
+    <div class="label">Destinatarios del valor (áreas de negocio)</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 16px;">
+      <span class="pill p-acc">Dirección Comercial</span>
+      <span class="pill p-acc">Área de Comunicaciones</span>
+      <span class="pill p-acc">Business Intelligence</span>
+      <span class="pill p-acc">Calidad de Datos</span>
     </div>
-    <p class="body" style="margin-top:14px;font-size:.9rem;"><b>Veredicto:</b> <span class="pill p-acc">Build</span> sobre modelo fundacion — la validación de identidad con la BBDD propia de Aysa no la ofrece un SaaS genérico.</p>
+    <div style="padding:6px 0;font-size:.95rem;">· Cada área recibe los insumos que necesita para <b>decidir y corregir la fuente de origen</b>.</div>
   </div>
-</div>`,
-
-/* 5 PIPELINE */
-()=>`<div class="kicker">03 · La solución</div><h2>Pipeline de 4 etapas</h2>
-<div class="grid" style="margin-top:26px;">
-  ${[
-    ["1 · Ingesta & limpieza","Determinístico, SIN IA — resuelve el ~70% del volumen","Metadatos · dedupe por hilo · filtro de spam/out-of-office/bounce · detección de adjuntos → OCR","det"],
-    ["2 · Clasificación & extracción","LLM clasifica tipo, campaña y extrae campos de identidad","[CONFIRMA] [RECHAZA] [NO_ES_MIA] [DUDA] [OPTOUT] [IRRELEVANTE] · n.º servicio, nombre, DNIS, dirección","llm"],
-    ["3 · Verificación de identidad","CRUCE con la fuente de verdad de Aysa — corazón del caso","CONFIRMADA · RECHAZADA · REQUIERE_HUMANO según umbral de confianza","hot"],
-    ["4 · Acción & salida","Abre/cierra casos, responde con plantilla, genera data","CRM · respuesta automática · dataset por campaña para Marketing","out"]
-  ].map(([t,d,sub,type],i)=>`<div class="card" style="position:relative;padding:26px;">
-      <div class="numsm" style="position:absolute;top:-14px;left:18px;background:var(--grad);color:#06101a;font-weight:800;border-radius:10px;padding:4px 12px;">${i+1}</div>
-      <h3 style="margin:4px 0 8px;">${t}</h3>
-      <p class="body" style="font-size:.95rem;">${d}</p>
-      <div class="mono" style="margin-top:12px;font-size:.78rem;">${sub}</div></div>`).join('')}
 </div>
-<div class="callout acc" style="margin-top:22px;"><span class="ico">🧭</span><div><b>Regla de oro:</b> el LLM solo <i>extrae</i> e <i>interpreta</i>. La cuenta se <b>confirma o rechaza por cruce con la fuente de verdad</b> — nunca por lo que "dice" un modelo. Así se previene fraude y suplantación.</div></div>`,
+<div class="callout acc" style="margin-top:22px;"><span class="ico">📊</span><div><b>Resultado esperado:</b> conocer <b>dónde</b> se genera el dato incorrecto para corregir el <b>proceso</b> — no solo el dato puntual.</div></div>`,
 
-/* 6 SECTION ESTRATEGIAS */
-()=>`<div class="kicker">04 · Alternativas</div>
-<div style="display:flex;flex-direction:column;justify-content:center;height:100%;">
-  <h2 style="font-size:clamp(3rem,7vw,5.5rem);">5 <span class="grad">estrategias</span></h2>
-  <p class="bigline" style="margin-top:20px;">De un MVP mínimo a una plataforma enterprise de punta a punta. Cada una con modelo, costos en 3 escenarios, tiempos, mantenimiento y equipo.</p>
-  <p class="bigline" style="margin-top:14px;color:var(--acc);font-weight:600;">Desde una escala de cliente como Aysa, el destino es la <span class="grad">Estrategia 5 · Enterprise</span> — y el MVP &rarr; E2/E3/E4 son los escalones hacia esa plataforma completa.</p>
-  <div class="flow" style="margin-top:36px;font-size:1rem;">
-    <span class="step">E1 · MVP (entrada)</span><span class="arr">➜</span>
-    <span class="step">E2 · Triage</span><span class="arr">➜</span>
-    <span class="step">E3 · OCR</span><span class="arr">➜</span>
-    <span class="step">E4 · Data/BI</span><span class="arr">➜</span>
-    <span class="step hot">E5 · ENTERPRISE (destino)</span>
+/* 5 ROL DE LA SOLUCIÓN */
+()=>`<div class="kicker">03 · Rol de la solución</div><h2 style="margin-bottom:24px;">Sustenta la decisión; no decide</h2>
+<div class="grid cols2">
+  <div class="card">
+    <div class="label">Qué hace</div>
+    <div style="padding:6px 0;font-size:.95rem;">· <b>Clasifica</b> correos de la casilla.</div>
+    <div style="padding:6px 0;font-size:.95rem;">· <b>Extrae</b> información relevante de cada mensaje.</div>
+    <div style="padding:6px 0;font-size:.95rem;">· <b>Genera datasets</b> por campaña.</div>
+    <div style="padding:6px 0;font-size:.95rem;">· <b>Proporciona evidencias</b> de cada resultado.</div>
+    <div style="padding:6px 0;font-size:.95rem;">· <b>Facilita el análisis</b> posterior de las áreas.</div>
+  </div>
+  <div class="card">
+    <div class="label">Qué NO hace</div>
+    <div style="padding:6px 0;font-size:.95rem;">· No <b>corrige ni modifica</b> datos automáticamente.</div>
+    <div style="padding:6px 0;font-size:.95rem;">· No es un sistema que <b>"toma decisiones"</b>.</div>
+    <div style="padding:6px 0;font-size:.95rem;">· No confirmamos titularidad solo por el modelo: el <b>cruce con la fuente corporativa</b> aporta la evidencia.</div>
+    <div style="padding:6px 0;font-size:.95rem;">· No reemplaza Exchange ni los procesos actuales.</div>
+  </div>
+</div>
+<div class="callout" style="margin-top:22px;"><span class="ico">🧭</span><div><b>La decisión y la acción correctiva quedan en las áreas responsables.</b> La herramienta aporta información confiable para decidir mejor y más rápido.</div></div>`,
+
+/* 6 ARQUITECTURA */
+()=>`<div class="kicker">04 · Arquitectura</div><h2 style="margin-bottom:22px;">Mismo flujo, pensado para el negocio</h2>
+<div class="grid" style="margin-top:8px;">
+  ${[
+    ["1 · Ingesta desde la casilla","Conector dentro de la VPN lee la casilla (EWS/Graph) o se importa desde un archivo PST; incremental con dedupe, y staging en el repositorio corporativo de datos."],
+    ["2 · Clasificación y extracción","El caso es principalmente texto: modelo liviano con schema estricto y prompt por campo (patrón Instructor/DocInfo) según la estructura de salida definida con las áreas."],
+    ["3 · Verificación contra la fuente corporativa","Cruce determinístico contra la base de datos relacional. Evidencia: Coincide · No coincide · Requiere revisión — nunca decide por sí sola."],
+    ["4 · Datasets y evidencias","Estructura de salida definida con BI y las áreas; datasets por campaña + rastro de evidencia por email para el análisis posterior."]
+  ].map(([t,d],i)=>`<div class="card" style="position:relative;padding:24px;">
+      <div style="position:absolute;top:-14px;left:18px;background:var(--grad);color:#06101a;font-weight:800;border-radius:10px;padding:4px 12px;">${i+1}</div>
+      <h3 style="margin:4px 0 8px;">${t}</h3>
+      <p class="body" style="font-size:.92rem;">${d}</p></div>`).join('')}
+</div>
+<div class="callout acc" style="margin-top:22px;"><span class="ico">🧭</span><div><b>Regla de oro:</b> la herramienta <b>clasifica y extrae</b>; la evidencia la aporta el <b>cruce</b>; la decisión final es del <b>área responsable</b>.</div></div>`,
+
+/* 7 PROPUESTA MVP · ETAPAS */
+()=>`<div class="kicker">05 · Propuesta MVP</div><h2 style="margin-bottom:20px;">El MVP: detectar inconsistencias ya</h2>
+<p class="lead" style="margin-bottom:22px;">Clasificación y extracción de texto de la casilla, cruce con la fuente corporativa y generación de <b>datasets + evidencias</b> por campaña. El MVP no requiere modelos complejos ni OCR: el caso es texto.</p>
+<div class="grid cols2">
+  <div class="card">
+    <div class="label">Actividades del proyecto (8–12 semanas)</div>
+    <div style="padding:5px 0;font-size:.9rem;color:var(--muted);">1 · Análisis de requerimientos y muestra de correos</div>
+    <div style="padding:5px 0;font-size:.9rem;color:var(--muted);">2 · Desarrollo de la extracción desde Exchange (o importe PST)</div>
+    <div style="padding:5px 0;font-size:.9rem;color:var(--muted);">3 · Diseño del esquema de clasificación</div>
+    <div style="padding:5px 0;font-size:.9rem;color:var(--muted);">4 · Implementación del modelo de IA</div>
+    <div style="padding:5px 0;font-size:.9rem;color:var(--muted);">5 · Integración con la fuente de datos corporativa</div>
+    <div style="padding:5px 0;font-size:.9rem;color:var(--muted);">6 · Validación de resultados (golden set)</div>
+    <div style="padding:5px 0;font-size:.9rem;color:var(--muted);">7 · Generación de reportes y datasets</div>
+    <div style="padding:5px 0;font-size:.9rem;color:var(--muted);">8 · Pruebas y ajustes finales</div>
+  </div>
+  <div class="grid">
+    <div class="card"><div class="label">Duración</div><div class="num sm">8–12 semanas</div><div style="font-size:.85rem;color:var(--muted);">Base 10 · con colchón 12 · optimista 8. Detalle semana a semana en anexo.</div></div>
+    <div class="card"><div class="label">Contenido</div><div class="num sm">Texto</div><div style="font-size:.85rem;color:var(--muted);">Correos de campaña; sin OCR de adjuntos.</div></div>
+    <div class="card"><div class="label">Modelo</div><div class="num sm">Liviano</div><div style="font-size:.85rem;color:var(--muted);">Que corre self-host o en cloud con DPA.</div></div>
+    <div class="card"><div class="label">Decisiones</div><div class="num sm">Áreas</div><div style="font-size:.85rem;color:var(--muted);">La herramienta sustenta; el área decide.</div></div>
   </div>
 </div>`,
 
-/* 7 E1 */
-strategyCard(1,"Filtro Determinístico + Solo Identidad","Puerta de entrada — no el destino","Sin IA en el grueso. Reglas determinísticas resuelven campaña, tipo, spam y dedupe. El LLM solo extrae los campos de identidad y se cruza con la base. **Validar la tasa real de confirmación/rechazo con mínimo riesgo antes de escalar al enterprise.**",["Qwen2.5:14b","gpt-5-mini"],["12","21","30"],"4–6 semanas","1–2 días","Bajo","2 PT",["Costo casi nulo","Rápido de construir","Valida el proceso antes del enterprise"],["No captura intención libre","Clasificación rígida","Sin feedback en tiempo real"],"low"),
-/* 8 E2 */
-strategyCard(2,"Triage Completo con LLM + Human-in-the-Loop","Balance operativo","El LLM clasifica todo con schema estricto y un juez de validación. Bajo el umbral de confianza, deriva a una cola de revisión humana.",["Qwen2.5:14b","gpt-5-mini / gemini-3-flash"],["120","172","225"],"8–10 semanas","3–5 días","Medio","3",["Captura intención libre","Alta precisión con juez","Feedback humano real"],["Requiere operador humano","Más tokens","Requiere golden set"],"mid"),
-/* 9 E3 */
-strategyCard(3,"OCR + Identidad para Adjuntos","Máxima evidencia de titularidad","Además del triage, procesa adjuntos (factura/empadronamiento) con OCR y extrae nombre y número del documento: la señal de identidad más fuerte.",["Qwen2.5-VL","gemini-3-flash-vision"],["165","240","315"],"10–12 semanas","4–7 días","Medio-alto","4",["Máxima evidencia de titularidad","Menos falsos positivos","Robusto a emails escuetos"],["Más caro","Más mantenimiento (formatos)","Más lento"],"mid"),
-/* 10 E4 */
-strategyCard(4,"Clustering Semántico + Campañas","Data para Marketing compartido","Igual que E2, más embeddings para dedupe semántico. El output se normaliza en un dataset accionable por campaña para BI/Marketing.",["Qwen/gpt-5-mini","+ bge-m3 / nomic-embed"],["128","183","240"],"9–11 semanas","3–5 días","Medio","3",["Data única para Marketing","Dedupe semántico real","Normalización para BI"],["Complejidad extra","Requiere KPIs desde el día 1"],"mid"),
-/* 11 E5 */
-strategyCard(5,"Orquestación Completa (CRM + BI)","Full enterprise — EL DESTINO","Todo integrado: ingestión schedulada, OCR, triage, verificación de identidad en tiempo real, CRM, respuestas automáticas y dashboard en vivo por campaña. La solución de plataforma que merece un cliente de la escala de Aysa.",["Full stack multi-modal","Qwen2.5-VL / gpt-5-mini"],["270","375","480"],"14–18 semanas","5–8 días","Alto","5–6",["Punta a punta automatizado","Dashboard en vivo","Escalable a más volumen y campañas"],["El más caro","Alto mantenimiento","Requiere equipo dedicado de operación"],"high"),
-
-/* 12 COMPARATIVA */
-()=>`<div class="kicker">04 · Resumen</div><h2 style="margin-bottom:24px;">Las 5 estrategias de un vistazo</h2>
-<div style="overflow:auto;max-height:72vh;">
+/* 8 PLAN SEMANA A SEMANA · 1–6 */
+()=>`<div class="kicker">05 · Propuesta MVP · Plan semana a semana</div><h2 style="margin-bottom:22px;">Semanas 1–6 · descubrir, conectar y entrenar el examen</h2>
+<div style="overflow:auto;max-height:62vh;">
 <table class="table">
-  <thead><tr><th>#</th><th>Estrategia</th><th>Costo ARS / lote</th><th>Set-up</th><th>Tiempo lote</th><th>Equipo</th><th>Madurez</th></tr></thead>
+  <thead><tr><th>Semana</th><th>Actividades importantes</th><th>Entregable</th></tr></thead>
   <tbody>
     ${[
-      ["1","Filtro det. + Solo Identidad","12K / 21K / 30K","4–6 sem","1–2 d","2 PT",'<span class="pill p-good">Entrada</span>'],
-      ["2","Triage LLM + Human-in-loop","120K / 172K / 225K","8–10 sem","3–5 d","3",'<span class="pill p-warn">Núcleo</span>'],
-      ["3","OCR + Identidad","165K / 240K / 315K","10–12 sem","4–7 d","4",'<span class="pill p-warn">Componente</span>'],
-      ["4","Clustering + Campañas","128K / 183K / 240K","9–11 sem","3–5 d","3",'<span class="pill p-warn">BI</span>'],
-      ["5","Orquestación Completa","270K / 375K / 480K","14–18 sem","5–8 d","5–6",'<span class="pill p-bad">★ Enterprise</span>']
-    ].map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td class="mono">${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td><td>${r[6]}</td></tr>`).join('')}
+      ["1 · Discovery y baseline","· Pedir y validar la muestra real de la casilla (IT + Compliance) · Definir el plan de acceso (EWS/Graph o importe PST) · Workshop de taxonomía y aprobación del esquema con las áreas","Esquema aprobado + plan de acceso"],
+      ["2 · Lectura y datos","· Leer la casilla: volumen, campañas, % de ruido y adjuntos · Medir el % real de correos útiles · Definición preliminar del contrato de salida con BI","Documento \"lectura de la casilla\""],
+      ["3 · Extracción","· Conector Exchange (EWS/Graph) o importe PST, con dedupe e incremental · Staging en el repositorio corporativo de datos (append-only) · Filtro determinístico de ruido (sin IA)","Primer lote real leído y filtrado"],
+      ["4 · Golden set y primer modelo","· Etiquetado completo del golden set (~300 emails) con el negocio · Split 70/15/15 con examen final congelado · Prompts por campo con schema estricto (Instructor/DocInfo) · Primer modelo sobre el set de entrenamiento","Golden set aprobado + primeras métricas"],
+      ["5 · Juez y umbrales","· Juez de validación sobre los casos grises (~30%) · Tuning de umbrales de confianza · Métricas contra las metas: clasificación ≥ 90% · extracción ≥ 95% · derivación < 30%","Cuadro de métricas sobre validación"],
+      ["6 · Revisión de calidad","· Análisis de errores: ¿prompt, definición o dato? · Segundo pase de extracción · Plan de ajuste fino para el examen final","Reporte de errores + plan de cierre"]
+    ].map(r=>`<tr><td style="white-space:nowrap;"><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}
+  </tbody>
+</table>
+</div>`,
+
+/* 9 PLAN SEMANA A SEMANA · 7–12 */
+()=>`<div class="kicker">05 · Propuesta MVP · Plan semana a semana</div><h2 style="margin-bottom:22px;">Semanas 7–12 · evidencia, examen final y entrega</h2>
+<div style="overflow:auto;max-height:62vh;">
+<table class="table">
+  <thead><tr><th>Semana</th><th>Actividades importantes</th><th>Entregable</th></tr></thead>
+  <tbody>
+    ${[
+      ["7 · Normalización y acceso","· Reglas de normalización de campos (tildes, formatos de cuenta y documento) · Permisos de lectura de la fuente corporativa (RDB/IT) · Versionado de reglas","Reglas de normalización aprobadas"],
+      ["8 · Cruce y contrato de salida","· Cruce determinístico contra la fuente corporativa (Coincide / No coincide / Requiere revisión) · Contrato de salida definido con BI (columnas, granularidad, periodicidad)","Un correo real resuelto de punta a punta"],
+      ["9 · Examen final","· Pipeline completo sobre el golden set de test (congelado en la semana 4) · Ajuste fino de prompts y umbrales · Revisión de la cola humana · Decisión self-host vs cloud con el dato real","Métricas finales de go/no-go"],
+      ["10 · Datasets y documentación","· Datasets por campaña con rastro de evidencia · Documentación técnica y versionado · Tablero de métricas (proceso y negocio)","Datasets + tablero listos"],
+      ["11 · Validación e informe","· Validación final contra las metas · Informe de go/no-go con 3 escenarios · Actualización del registro de riesgos","Informe preparado para el gate"],
+      ["12 · Colchón / traspaso","· Cierre de desvíos si los hubo · Sesión de traspaso y show & tell con las áreas · Firma de cierre del piloto","Piloto cerrado y firmado"]
+    ].map(r=>`<tr><td style="white-space:nowrap;"><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}
   </tbody>
 </table>
 </div>
-<p class="body" style="margin-top:14px;font-size:.85rem;color:var(--dim);">Costos en ARS, marcados en miles con <b>K</b> (ej. 21K = ARS 21.000): pesimista / base / optimista (ref. 1 USD ≈ 1.500 ARS) · Escala de madurez → mejores datos, pero mayor costo, tiempo y mantenimiento.</p>`,
+<div class="callout acc" style="margin-top:22px;"><span class="ico">✅</span><div><b>Escenarios:</b> base 10 semanas · pesimista 12 (colchón) · optimista 8 si hay EWS directo y golden set listo. Nunca se comprime la validación. Todo el detalle (pasos, responsables, criterios) en <span class="mono">plan-semanas-aysa.md</span>.</div></div>`,
 
-/* 13 FINANCIERO */
-()=>`<div class="kicker">05 · Financiero</div><h2 style="margin-bottom:22px;">Costo y retorno en 3 escenarios</h2>
+/* 10 PROPUESTA 2 · ENTERPRISE */
+()=>`<div class="kicker">06 · La opción Enterprise</div><h2 style="margin-bottom:20px;">Enterprise · la evolución con OCR y multiprueba</h2>
+<p class="lead" style="margin-bottom:22px;">La misma base del MVP, ampliada: resuelve los casos que el texto solo no alcanza —adjuntos y comprobantes— y deja la evidencia operando <b>como parte del día a día de las áreas</b>. Es la opción de evolución, no el pedido de hoy.</p>
+<div class="grid cols2" style="gap:16px;">
+  ${[
+    ["Qué resuelve","· <b>OCR de adjuntos y comprobantes</b>: el documento pasa a ser la segunda señal de titularidad · <b>Verificación multiprueba</b>: email + documento + fuente corporativa → menos casos \"requieren revisión\" · Cubre los correos con adjunto que el MVP deja señalados"],
+    ["Qué implica","· 12–16 semanas después del MVP · Mayor mantenimiento: los formatos de comprobantes cambian y exigen re-ajustar el OCR · Costos de cómputo a estimar con una muestra real (sin estimaciones a priori) · Entrega integrada: dashboard en vivo y cola de revisión para las áreas"],
+    ["RPA opcional (posterior)","· Automatizar el <b>último tramo</b>: detectada la inconsistencia, generar la solicitud de corrección o actualizar la fuente de origen en los sistemas que Aysa ya opera · Se propone <b>solo si el cliente ya tiene RPA</b>: no es parte del MVP ni del ask · Su propia evaluación y go/no-go, con el mismo patrón de riesgo acotado"],
+    ["Relación con el MVP","· Comparte la <b>misma arquitectura de 4 pasos</b>: el MVP es el primer escalón real · Go/no-go propio antes de escalar · <b>Nada de Enterprise bloquea H1</b>"]
+  ].map(([t,d])=>`<div class="card"><h3 style="color:var(--acc);margin-bottom:8px;">${t}</h3><p class="body" style="font-size:.9rem;">${d}</p></div>`).join('')}
+</div>
+<div class="callout" style="margin-top:22px;"><span class="ico">🧭</span><div><b>Lectura correcta:</b> hoy solo se aprueba H1 (el MVP). Enterprise y la automatización RPA se evalúan con su propio go/no-go cuando el MVP lo justifique, con el mismo patrón de riesgo acotado.</div></div>`,
+
+/* 11 PERFILES */
+()=>`<div class="kicker">05 · Equipo</div><h2 style="margin-bottom:26px;">Perfiles y responsabilidades</h2>
+<div class="grid cols2">
+  ${[
+    ["Especialista en Automatización / Integración","Conexión a la casilla (EWS/PST), staging y salidas (CSV/API/BI)."],
+    ["Especialista en Datos e IA","Schema de salida, prompts por campo (Instructor/DocInfo), modelo, juez y golden set."],
+    ["Analista funcional · Referente de negocio","Taxonomía de clasificación, etiquetado de muestra y validación de resultados."],
+    ["Responsable de datos / BI","Formato de salida, consumo en BI y control de calidad de los datasets."]
+  ].map(([t,d])=>`<div class="card"><h3 style="color:var(--acc);margin-bottom:8px;">${t}</h3><p class="body" style="font-size:.92rem;">${d}</p></div>`).join('')}
+</div>
+<div class="callout acc" style="margin-top:22px;"><span class="ico">👥</span><div><b>Responsabilidades explícitas:</b> cada tarea tiene un dueño de entrega y un dueño de validación — separación garantizada entre quien produce y quien aprueba.</div></div>`,
+
+/* 10 MODELOS */
+()=>`<div class="kicker">07 · Modelos de IA</div><h2 style="margin-bottom:20px;">Texto: modelos livianos, self-host o cloud</h2>
 <div class="grid cols2">
   <div class="card">
-    <div class="label">Costo por lote (ARS, K) — barra = base</div>
-    ${[["E1",21,6],["E2",172,40],["E3",240,54],["E4",183,42],["E5",375,82]].map(([n,v,w])=>`<div style="margin:12px 0;"><div style="display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:5px;"><span>${n}</span><b>${v}K</b></div><div class="barwrap"><div class="bar" style="width:${w}%"></div></div></div>`).join('')}
-    <p class="body" style="font-size:.8rem;color:var(--dim);margin-top:10px;">Costo por lote evita el costo unitario por token.</p>
+    <div class="label">Opción A · Self-host dentro de la VPN</div>
+    <div style="padding:8px 0;border-bottom:1px solid var(--line);"><b>Modelos ligeros</b><div class="mono" style="font-size:.8rem;">Qwen2.5-7B / 14B (clasificación y extracción)</div></div>
+    <div style="padding:8px 0;border-bottom:1px solid var(--line);">· Cómputo local: <b>los datos nunca salen de la red</b>.</div>
+    <div style="padding:8px 0;">· Cumple Ley 25.326 sin transferencia de PII.</div>
   </div>
   <div class="card">
-    <div class="label">TCO 3 años (Estrategia 5 · enterprise)</div>
-    ${[["Infraestructura (compute/API)","ARS 7–22M / año"],["Integración y desarrollo","ARS 30–60M"],["Talento y entrenamiento","ARS 15–37M"],["Gestión del cambio","5–15% extra"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);"><span>${a}</span><b class="mono">${b}</b></div>`).join('')}
-    <div class="callout" style="margin-top:14px;"><span class="ico">💰</span><div><b>Contingencia mínima 25%:</b> la preparación de datos y el cambio de proceso suelen ser 40–60% del costo real y casi siempre se subestiman.</div></div>
+    <div class="label">Opción B · Cloud con DPA (si compliance lo aprueba)</div>
+    <div style="padding:8px 0;border-bottom:1px solid var(--line);"><b>Modelos livianos</b><div class="mono" style="font-size:.8rem;">gpt-5-mini (OpenAI) · gemini-3-flash (Google)</div></div>
+    <div style="padding:8px 0;border-bottom:1px solid var(--line);">· Extracción con <b>prompt por campo</b> (patrón Instructor/DocInfo).</div>
+    <div style="padding:8px 0;">· Requiere DPA y política de retención aprobadas.</div>
   </div>
 </div>
-<div class="grid cols4" style="margin-top:18px;">
-  ${[["Payback base","6–12 meses"],["ROI pesimista","positivo → robusto"],["NPV 3 años (8–12%)","positivo"],["Inversión piloto H1","ARS 12–30M"]].map(([a,b])=>`<div class="card"><div class="label">${a}</div><div class="num sm">${b}</div></div>`).join('')}
-</div>`,
+<div class="callout warn" style="margin-top:22px;"><span class="ico">📌</span><div><b>Sobre costos:</b> no presentamos estimaciones detalladas de token en esta instancia — aún no contamos con datos reales de la casilla. <b>Las estimaciones finales se realizarán luego del análisis de una muestra representativa de correos.</b></div></div>
+<p class="body" style="margin-top:12px;font-size:.85rem;color:var(--dim);">El caso es principalmente texto: no se requieren modelos complejos ni OCR. Se probará self-host y cloud con la muestra antes de decidir.</p>`,
 
-/* 14 RIESGOS */
-()=>`<div class="kicker">06 · Riesgos</div><h2 style="margin-bottom:22px;">Registro de riesgos</h2>
+/* 11 RIESGOS */
+()=>`<div class="kicker">08 · Riesgos</div><h2 style="margin-bottom:22px;">Registro de riesgos</h2>
 <div style="overflow:auto;max-height:70vh;">
 <table class="table">
   <thead><tr><th>#</th><th>Riesgo</th><th>Prob.</th><th>Imp.</th><th>Mitigación</th></tr></thead>
   <tbody>
     ${[
-      ["R1","Confirmación identidad errónea (fraude)",'<span class="pill p-warn">Med</span>','<span class="pill p-bad">Alto</span>','Nunca confirmar solo por LLM · cruzar con fuente de verdad'],
-      ["R2","Incumplimiento Ley 25.326 (PII a nube)",'<span class="pill p-warn">Med</span>','<span class="pill p-bad">Alto</span>','Self-host si PII · DPA si cloud · retención'],
-      ["R3","Alucinación del LLM en extracción",'<span class="pill p-warn">Med</span>','<span class="pill p-warn">Med</span>','Juez de validación + schema + golden set'],
-      ["R4","Opt-out / baja no respetado",'<span class="pill p-good">Baj</span>','<span class="pill p-bad">Alto</span>','Priorizar [OPTOUT], nunca postergar'],
-      ["R5","Formatos de factura cambian (OCR)",'<span class="pill p-warn">Med</span>','<span class="pill p-warn">Med</span>','Templates/benchmarks OCR, re-ajuste'],
-      ["R6","Sobre-costo en tókenes",'<span class="pill p-warn">Med</span>','<span class="pill p-warn">Med</span>','Filtro determinístico primero (70% sin LLM)'],
-      ["R7","Adopción / dip de productividad",'<span class="pill p-warn">Med</span>','<span class="pill p-warn">Med</span>','Gestión del cambio, quick wins 90 días'],
-      ["R8","Dependencia de proveedor LLM",'<span class="pill p-warn">Med</span>','<span class="pill p-warn">Med</span>','Capa de abstracción de modelo, self-host']
+      ["R1","Identificación incorrecta del titular (error o fraude)",'<span class="pill p-warn">Med</span>','<span class="pill p-bad">Alto</span>','Cruce con la fuente corporativa + evidencia · revisión en las áreas'],
+      ["R2","Datos personales · Ley 25.326 (PII)",'<span class="pill p-warn">Med</span>','<span class="pill p-bad">Alto</span>','Self-host dentro de la VPN, o cloud con DPA y retención aprobada'],
+      ["R3","Dificultad de acceso a la casilla (Exchange)",'<span class="pill p-warn">Med</span>','<span class="pill p-warn">Med</span>','Acuerdo con IT · alternativa: importe PST como respaldo'],
+      ["R4","Datos de origen incompletos o erróneos",'<span class="pill p-warn">Med</span>','<span class="pill p-warn">Med</span>','Es el objetivo: detectarlos e informarlos con evidencia para corregir el origen'],
+      ["R5","Alucinación del modelo en la extracción",'<span class="pill p-warn">Med</span>','<span class="pill p-warn">Med</span>','Schema estricto + prompt por campo + juez + golden set'],
+      ["R6","Formato de salida no aprovechable por BI",'<span class="pill p-good">Baj</span>','<span class="pill p-warn">Med</span>','Contrato de salida definido con el área de datos / BI desde el kickoff']
     ].map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join('')}
   </tbody>
 </table>
 </div>
-<p class="foot">Cada riesgo con probabilidad, impacto y mitigación · Formato risk register (no párrafos).</p>`,
+<p class="foot">Formato risk register: probabilidad, impacto y mitigación — sin sistemas como foco central.</p>`,
 
-/* 15 ROADMAP */
-()=>`<div class="kicker">07 · Roadmap</div><h2 style="margin-bottom:26px;">3 horizontes con go / no-go</h2>
+/* 12 ROADMAP */
+()=>`<div class="kicker">08 · Roadmap</div><h2 style="margin-bottom:26px;">3 horizontes con go / no-go</h2>
 <div class="grid cols3" style="gap:16px;">
   ${[
-    ["H1 · Quick Wins","0–6 meses",'<span class="pill p-acc">Aprueba ahora</span>',"Puerta de entrada (E1) + golden set + medir tasa real de confirmación/rechazo","ARS 12–30M"],
-    ["H2 · Escala","6–18 meses",'<span class="pill p-warn">Contexto</span>',"Expandir a E2/E3 (human-in-loop, OCR) + gobernanza/ops","ARS 30–75M"],
-    ["H3 · Enterprise","18–36 meses",'<span class="pill p-warn">Destino</span>',"E4/E5 (data campañas + dashboard en vivo + CRM full) — la plataforma que merece Aysa","ARS 67–135M"]
+    ["H1 · Piloto MVP","0–3 meses",'<span class="pill p-acc">Aprueba ahora</span>',"Datasets + evidencias por campaña para las áreas. Clasificación y extracción de texto con golden set de validación.","8–12 semanas"],
+    ["H2 · Opción Enterprise","3–6 meses",'<span class="pill p-warn">Contexto</span>',"OCR documental, verificación multiprueba y dashboard con cola de revisión, sobre la misma base del MVP.","Reutiliza el motor del MVP"],
+    ["H3 · Escala de casillas","Según demanda",'<span class="pill p-warn">Contexto</span>',"Aplicar el mismo patrón a otras casillas y áreas (Dirección Comercial, Comunicaciones).","Abierto a nuevas casillas"]
   ].map(([t,time,tag,d,inv])=>`<div class="card" style="display:flex;flex-direction:column;">
       <div style="display:flex;justify-content:space-between;align-items:center;"><b>${t}</b><span class="pill p-acc" style="background:none;border:1px solid var(--acc);">${time}</span></div>
       <div style="margin:10px 0;">${tag}</div>
-      <p class="body" style="font-size:.9rem;flex:1;">${d}</p>
+      <p class="body" style="font-size:.88rem;flex:1;">${d}</p>
       <div class="divider"></div>
       <div style="text-align:center;"><span class="mono">${inv}</span></div></div>`).join('')}
 </div>
-<div class="callout acc" style="margin-top:22px;"><span class="ico">🎯</span><div><b>Principio "shrink the ask":</b> se aprueba solo H1. Si el piloto no supera el go/no-go, se cierra con una pérdida acotada al presupuesto del piloto. Riesgo total limitado.</div></div>`,
+<div class="callout acc" style="margin-top:22px;"><span class="ico">🎯</span><div><b>Principio "shrink the ask":</b> se aprueba solo H1 (el piloto MVP). Enterprise y la escala tienen su propio go/no-go; si H1 no supera las métricas, se cierra con una pérdida acotada al piloto.</div></div>`,
 
-/* 16 GOBERNANZA */
-()=>`<div class="kicker">08 · Gobernanza & stakeholders</div><h2 style="margin-bottom:26px;">Quién decide qué</h2>
-<div class="grid cols2">
-  <div class="card">
-    <div class="label">Roles de gobernanza</div>
-    ${[["Business Sponsor","Gerencia Operaciones/Marketing"],["Technical Sponsor","CIO / CTO"],["Finance co-author","Finanzas"],["Compliance owner","Legal / CISO / DPO · Ley 25.326"],["Entrega","Equipo según estrategia (RACI)"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);"><b>${a}</b><span class="body" style="font-size:.9rem;">${b}</span></div>`).join('')}
-  </div>
-  <div class="card">
-    <div class="label">A cada stakeholder, lo que le importa</div>
-    ${[["CFO","Cash flow · payback · ROI/NPV · escenarios"],["CIO/CTO","Factibilidad · integración CRM/BBDD · seguridad"],["CEO","Valor de negocio · evitar multas · ventaja"],["Marketing","Data por campaña: % confirmación, rechazo, opt-out"]].map(([a,b])=>`<div style="display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);align-items:flex-start;"><b style="min-width:90px;">${a}</b><p class="body" style="font-size:.9rem;margin:0;">${b}</p></div>`).join('')}
-  </div>
-</div>`,
-
-/* 17 METRICAS */
-()=>`<div class="kicker">09 · Métricas</div><h2 style="margin-bottom:26px;">Métricas de éxito y criterios de corte</h2>
+/* 13 METRICAS */
+()=>`<div class="kicker">08 · Métricas</div><h2 style="margin-bottom:24px;">Métricas de éxito y criterios de corte</h2>
 <div class="grid cols2">
   <div class="card">
     <div class="label">Go / No-Go del piloto (H1)</div>
-    ${[["Precisión de clasificación (golden set)","≥ 90%"],["Precisión de extracción de identidad","≥ 95%"],["Tasa de derivación a humano","< 30%"],["Payback piloto","< 6 meses"],["Riesgo R1 sin mitigación","0 · bloqueante"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);"><span>${a}</span><b class="mono">${b}</b></div>`).join('')}
+    ${[["Precisión de clasificación (golden set)","≥ 90%"],["Precisión de extracción de campos clave","≥ 95%"],["Tasa de derivación a revisión por áreas","< 30%"],["Cobertura por campaña","≥ 95% de emails útiles"],["Evidencia aportada por email","100% · bloqueante"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);"><span>${a}</span><b class="mono">${b}</b></div>`).join('')}
   </div>
   <div class="card">
     <div class="label">Kill criteria (señales para cortar)</div>
-    ${[["Time-to-value","retraso > 6 meses"],["Adopción","> 50% bajo lo previsto"],["Costo operativo","> 3× el modelo del piloto"],["Precisión","no se cierra con revisión humana"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);"><span>${a}</span><b class="mono" style="color:var(--warn);">${b}</b></div>`).join('')}
+    ${[["Time-to-value","retraso > 3 meses en piloto"],["Adopción","> 50% bajo lo previsto"],["Precisión","no se cierra con revisión de áreas"],["Acceso a la casilla","compliance/IT no habilita la muestra"],["Costo operativo","fuera de rango frente a la muestra real"]].map(([a,b])=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);"><span>${a}</span><b class="mono" style="color:var(--warn);">${b}</b></div>`).join('')}
   </div>
 </div>
-<div class="callout green" style="margin-top:22px;"><span class="ico">📊</span><div><b>Leading vs lagging:</b> operativas en cada fase (precisión, tiempo/caso) y financieras (ahorro, ROI) medidas en gates de 3·6·12 meses.</div></div>`,
+<div class="callout" style="margin-top:20px;"><span class="ico">📊</span><div><b>Leading vs lagging:</b> de proceso en cada fase (precisión, tiempo/caso, % revisión) y de negocio (inconsistencias detectadas por origen, datasets entregados en tiempo, horas de revisión liberadas) en gates de 1·2·3 meses.</div></div>`,
 
-/* 18 CIERRE */
+/* 14 OPERACIÓN EN MARCHA */
+()=>`<div class="kicker">08 · La operación en marcha</div><h2 style="margin-bottom:20px;">Después del piloto: qué queda automatizado</h2>
+<p class="lead" style="margin-bottom:22px;">Con el H1 aprobado, la solución deja de ser un proyecto y pasa a ser <b>un servicio continuo</b>: cada correo nuevo se procesa solo, y las áreas reciben datos actualizados sin intervención manual.</p>
+<div class="grid cols2" style="gap:16px;">
+  ${[
+    ["Automático · cada corrida","· <b>Ingesta incremental</b>: el conector levanta solo los correos nuevos (dedupe, append-only, dentro de la VPN) · <b>Filtro</b> de ruido → <b>clasificación y extracción</b> con el modelo · <b>Cruce</b> contra la fuente corporativa con evidencia · <b>Publicación</b> de los datasets por campaña y del dashboard actualizados"],
+    ["Humano · solo lo dudoso","· El <b>juez</b> deriva a revisión lo que no supera los umbrales (cola en el dashboard) · Una persona del área resuelve el caso y la decisión queda <b>registrada y auditable</b> · Los umbrales y reglas se ajustan con gobernanza y versionado"],
+    ["Quién opera en Aysa","· El <b>área de datos / BI</b> ejecuta y monitorea el pipeline (corridas programadas y alertas) · El <b>referente funcional</b> revisa criterios de negocio y la cola de revisión · Documentación técnica versionada en el repositorio de Aysa"],
+    ["Cómo se escala","· El mismo patrón aplica a <b>otras casillas y áreas</b> (Dirección Comercial, Comunicaciones) · La <b>opción Enterprise</b> agrega OCR y multiprueba sobre el mismo motor · Cada paso nuevo conserva su go/no-go"]
+  ].map(([t,d])=>`<div class="card"><h3 style="color:var(--acc);margin-bottom:8px;">${t}</h3><p class="body" style="font-size:.9rem;">${d}</p></div>`).join('')}
+</div>
+<div class="callout acc" style="margin-top:22px;"><span class="ico">⚙️</span><div><b>La automatización no reemplaza la decisión:</b> lo automático acelera, lo dudoso lo resuelve una persona y cada correo conserva su rastro de evidencia.</div></div>`,
+
+/* 15 CIERRE / PREGUNTAS */
 ()=>`<div style="display:flex;flex-direction:column;justify-content:center;height:100%;">
-  <div class="kicker">Recomendación</div>
-  <h2>Una hoja de ruta<br>en <span class="grad">4 pasos</span></h2>
-  <div class="grid cols2" style="margin-top:30px;">
+  <div class="kicker">Ronda de preguntas</div>
+  <h2>Preguntas, dudas<br>y <span class="grad">siguiente paso</span></h2>
+  <div class="grid cols2" style="margin-top:28px;">
     ${[
-      ["1 · Resolver la base","Self-host vs cloud (privacidad 25.326) + confirmar fuente de verdad de Aysa (BBDD de clientes)."],
-      ["2 · Aprobar H1 (puerta de entrada)","Estrategia 1 · 4–6 semanas · ARS 12–30M · go/no-go claro."],
-      ["3 · Escalar al enterprise","OCR + BI + CRM + dashboard: camino a la Estrategia 5, la plataforma que merece la escala de Aysa."],
-      ["4 · Golden set","~150 emails etiquetados a mano para medir precisión antes de escalar."]
-    ].map(([t,d])=>`<div class="card hover"><h3 style="color:var(--acc);margin-bottom:8px;">${t}</h3><p class="body" style="font-size:.95rem;">${d}</p></div>`).join('')}
+      ["1 · El camino propuesto","H1/MVP ahora para validar la detección de inconsistencias con la casilla real · go/no-go a los 3 meses · desde ahí, la opción Enterprise (OCR + multiprueba) y la escala de casillas, cada una con su propio go/no-go."],
+      ["2 · Decisión de modelo","Self-host (recomendado, cumple 25.326 sin salida de PII) o cloud con DPA. Probamos ambos con la muestra antes de decidir."],
+      ["3 · Lo que necesitamos para arrancar","Muestra real de correos + acceso a la casilla (o importe PST) + golden set de ~300 emails validado con las áreas + formato de salida BI definido."]
+    ].map(([t,d])=>`<div class="card hover"><h3 style="color:var(--acc);margin-bottom:8px;">${t}</h3><p class="body" style="font-size:.92rem;">${d}</p></div>`).join('')}
   </div>
-  <div class="callout" style="margin-top:24px;"><span class="ico">✅</span><div><b>Gracias.</b> labIA · Concentrix — listos para validar con datos reales de Aysa y avanzar en el piloto.</div></div>
+  <div class="callout" style="margin-top:22px;"><span class="ico">❓</span><div>labIA · Concentrix — listos para validar con una muestra real de la casilla y arrancar el piloto MVP. <b>¿Qué pregunta les queda?</b></div></div>
 </div>`
 ];
-function strategyCard(n,tag,subtitle,desc,models,cost,setup,lot,maintain,team,pros,cons,risk){
+function strategyCard(n,tag,subtitle,desc,models,cost,setup,lot,maintain,team,pros,cons){
   return ()=>`
-  <div class="kicker">04 · Estrategia ${n}</div>
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-    <div><h2>${tag}</h2><p class="lead" style="margin-top:8px;">${subtitle}</p></div>
-    <div style="text-align:right;"><span class="pill ${risk==='low'?'p-good':risk==='high'?'p-bad':'p-warn'}">${risk==='low'?'Bajo':risk==='high'?'Alto':'Medio'} riesgo</span></div>
-  </div>
-  <p class="body" style="margin:18px 0;max-width:820px;">${desc}</p>
-  <div class="grid cols4">
-    <div class="card"><div class="label">Modelos</div><div class="body" style="font-size:.9rem;">${models.join('<br>')}</div></div>
-    <div class="card"><div class="label">Costo ARS / lote</div><div class="mono" style="font-size:1.2rem;">${cost[0]}K · ${cost[1]}K · ${cost[2]}K</div><div class="label" style="margin-top:8px;">pesimista · base · optimista (ARS)</div></div>
-    <div class="card"><div class="label">Set-up</div><div class="num sm">${setup}</div></div>
-    <div class="card"><div class="label">Por lote (23k)</div><div class="num sm">${lot}</div></div>
-  </div>
-  <div class="grid cols2" style="margin-top:18px;">
-    <div class="card"><div class="label">✔ Pros</div>${pros.map(p=>`<div style="padding:6px 0;font-size:.92rem;">· ${p}</div>`).join('')}</div>
-    <div class="card"><div class="label">✘ Contras</div>${cons.map(c=>`<div style="padding:6px 0;font-size:.92rem;color:var(--warn);">· ${c}</div>`).join('')}</div>
-  </div>
-  <div class="grid cols4" style="margin-top:16px;">
-    <div class="card"><div class="label">Mantenimiento</div><div class="body" style="font-size:.92rem;">${maintain}</div></div>
-    <div class="card"><div class="label">Equipo</div><div class="body" style="font-size:.92rem;">${team}</div></div>
-    <div class="card col2"><div class="label">Workflow</div><div class="body" style="font-size:.85rem;color:var(--muted);">${({1:'Ingesta → reglas → extracción → cruce BBDD → caso/CSV',2:'Ingesta → LLM → juez+cruce → humano → caso/data',3:'adjuntos→OCR → triage → cruce → caso',4:'triage → embeddings → dataset campaña → BI',5:'CRON → OCR+emb → verificación → CRM → dashboard'})[n]||''}</div></div>
-  </div>`;
+  <div class="kicker">${n} · Propuesta</div>
+  <h2>${tag}</h2>`;
 }
 
 const all = SLIDES.map(f => '<div class="slide">' + f() + '</div>');

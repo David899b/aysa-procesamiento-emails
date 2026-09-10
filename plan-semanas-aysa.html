@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Plan semana a semana — MVP Aysa · labIA</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --ink:#1c2733; --accent:#0e7c86; --muted:#5b6b7b; --line:#e2e8ee; --soft:#f5f8fa; }
+  body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); line-height:1.6; font-size:13.5px; padding:34px 46px; max-width:900px; margin:0 auto; }
+  h1 { font-size:25px; color:var(--accent); margin:0 0 4px; letter-spacing:-.5px; }
+  h1.sub { font-size:15px; color:var(--muted); font-weight:500; margin-bottom:22px; }
+  h2 { font-size:16.5px; color:#0b4f56; margin:26px 0 8px; padding-bottom:6px;
+    border-bottom:2px solid var(--line); page-break-after:avoid; }
+  p { margin:0 0 9px; }
+  strong { color:#0b4f56; }
+  hr { border:none; border-top:1px solid var(--line); margin:22px 0; }
+  blockquote { background:var(--soft); border-left:3px solid var(--accent); padding:10px 16px;
+    margin:10px 0 14px; border-radius:2px; page-break-inside:avoid; }
+  blockquote p { margin:0 0 7px; }
+  blockquote p:last-child { margin-bottom:0; }
+  code { background:#eef2f5; padding:1px 5px; border-radius:3px; font-size:.92em; color:#0b4f56;
+    font-family:'SF Mono',Menlo,Consolas,monospace; }
+  ul, ol { margin:2px 0 12px 22px; }
+  li { margin-bottom:4px; }
+  .tblwrap { overflow-x:auto; margin:12px 0 16px; page-break-inside:avoid; }
+  table { border-collapse:collapse; width:100%; font-size:12.5px; }
+  th { background:#0e7c86; color:#fff; text-align:left; padding:8px 10px; font-weight:600; }
+  td { border:1px solid var(--line); padding:8px 10px; vertical-align:top; }
+  tr:nth-child(even) td { background:var(--soft); }
+  em { color:var(--muted); }
+</style>
+</head>
+<body>
+<h1>Plan semana a semana — MVP · Calidad de Datos de Contacto (Aysa · labIA)</h1>
+<blockquote><p><strong>Qué es este documento:</strong> es el desglose operativo del MVP de <strong>8 a 12 semanas</strong>. Detalla, semana por semana, <strong>qué</strong> se hace, <strong>quién</strong> lo hace, <strong>quién</strong> lo valida, <strong>qué</strong> se entrega y <strong>cómo se sabe</strong> que quedó bien hecho. Sirve como documento de trabajo de la demo, para que la empresa vea que no hay grises: cada rol, actividad y proceso está definido antes de arrancar.<br><strong>Cómo leerlo:</strong> cada semana tiene (1) su objetivo, (2) el entregable principal, (3) las tareas desglosadas en pasos concretos, y (4) el bloque "qué le demuestra esto a la empresa". Las celdas con 🔒 dependen de un entregable de Aysa.<br><strong>Escenarios de duración:</strong> base = 10 semanas · pesimista (con colchón) = 12 · optimista = 8 si EWS se habilita rápido y el golden set queda validado en la semana 2. Nunca se comprime la validación.<br><strong>Regla transversal:</strong> <strong>nadie valida lo que produce.</strong> Quien entrega y quien valida son personas distintas. Es la garantía de que las métricas son confiables para la decisión de go/no-go.</p></blockquote>
+<hr>
+<h2>1 · Los roles, sin ambigüedad</h2>
+<p>### De labIA (construyen el piloto)</p>
+<div class="tblwrap"><table><thead><tr><th>Rol</th><th>Sigla</th><th>Quién es</th><th>Qué produce (entrega)</th><th>Qué NO hace</th><th>Dedicación</th></tr></thead><tbody><tr><td><strong>Especialista en Automatización / Integración</strong></td><td>ESI</td><td>Ingeniero con experiencia en Exchange (EWS/Graph), ETL y repositorios de datos</td><td>El conector de la casilla, el staging de datos, el filtro de ruido, las reglas de normalización y las salidas (CSV/API/BI)</td><td>No define la taxonomía ni valida resultados de negocio</td><td>Completa durante el MVP</td></tr><tr><td><strong>Especialista en Datos e IA</strong></td><td>EDI</td><td>Ingeniero de datos + IA con experiencia en extracción estructurada (schema estricto, prompts por campo)</td><td>El esquema de clasificación, los prompts del modelo, el juez de validación y el golden set técnico</td><td>No decide qué significa cada clase para el negocio</td><td>Completa durante el MVP</td></tr></tbody></table></div>
+<p>### De Aysa (validan y habilitan)</p>
+<div class="tblwrap"><table><thead><tr><th>Rol</th><th>Sigla</th><th>Quién es</th><th>Qué aporta (valida / habilita)</th><th>Qué esperamos de ellos</th><th>Dedicación</th></tr></thead><tbody><tr><td><strong>Analista funcional · Referente de negocio</strong></td><td>AF</td><td>La persona del negocio que conoce las campañas y cómo se usa hoy la casilla</td><td>Define la taxonomía (qué significa cada clase), valida el golden set y aprueba los resultados con ojos de negocio</td><td>Disponibilidad en sesiones puntuales de etiquetado y revisión</td><td>Sesiones pautadas (no full-time)</td></tr><tr><td><strong>Responsable de datos / BI</strong></td><td>RDB</td><td>La persona que conoce la base de datos relacional corporativa y los reportes</td><td>Aprueba el formato de salida de los datasets, valida el cruce contra la fuente y controla la calidad</td><td>Acceso de lectura a la fuente corporativa + definición del formato de salida</td><td>Sesiones pautadas (no full-time)</td></tr><tr><td><strong>IT / Comunicaciones corporativas</strong></td><td>IT</td><td>Equipo que administra Exchange y la red bajo Ley 25.326</td><td>Habilita la muestra y el acceso de lectura de la casilla (o export PST) con mínimo privilegio</td><td>Entregar la muestra y las credenciales en la semana 1</td><td>Hitos puntuales 🔒</td></tr><tr><td><strong>Compliance / Legal</strong></td><td>CMP</td><td>Responsable de la Ley 25.326 y la política de retención</td><td>Aprueba el manejo de datos personales y, si se elige cloud, el DPA</td><td>Validar el esquema de datos en el kickoff y el DPA si aplica</td><td>Hitos puntuales 🔒</td></tr><tr><td><strong>Sponsor</strong></td><td>SP</td><td>La autoridad que decide el go/no-go</td><td>Aprueba H1 y preside el gate final con las métricas</td><td>Presupuesto del piloto + decisión de go/no-go con números</td><td>Inicio y gate final</td></tr></tbody></table></div>
+<p><strong>Regla de oro en la práctica:</strong> el ESI/EDI <strong>entregan</strong>, el AF/RDB/IT <strong>validan</strong>. Por ejemplo, el EDI mide la precisión del modelo; el AF confirma contra el golden set que esa medición es correcta. Nadie es juez de su propio trabajo.</p>
+<hr>
+<h2>2 · El proceso del piloto de punta a punta (en criollo)</h2>
+<p>Para que no quede ninguna duda de qué estamos construyendo, así fluye un solo correo a través del piloto:</p>
+<p><strong>Paso A · Ingresa el correo.</strong> Un conector dentro de la VPN lee la casilla (o importa un archivo PST si IT lo prefiere). No borra ni modifica nada: solo copia los correos nuevos a un área de trabajo (staging) con fecha y un sello único.</p>
+<p><strong>Paso B · Se separa el ruido del contenido útil.</strong> Un filtro automático (sin IA) descarta respuestas automáticas, devoluciones de mail y spam. Lo que queda es el contenido real de campaña.</p>
+<p><strong>Paso C · La IA clasifica y extrae.</strong> Un modelo liviano lee cada correo útil y responde con un formato estricto: cuál es la clase (CONFIRMA / NO_ES_MIA / DUDOSO / OPTOUT / IRRELEVANTE) y los campos de contacto (email, cuenta, nombre, dirección, teléfono, documento, relación con el titular, titular). El modelo <strong>no inventa</strong>: si un campo falta, queda marcado como ausente y el caso puede ir a revisión.</p>
+<p><strong>Paso D · Se verifica contra la fuente corporativa.</strong> Un cruce determinístico (reglas de código, sin IA) compara los datos extraídos contra la base de datos relacional corporativa. El resultado es una <strong>evidencia</strong>: <code>Coincide · No coincide · Requiere revisión</code>.</p>
+<p><strong>Paso E · Se arma el dataset por campaña.</strong> Con la evidencia de cada correo se genera el dataset que reciben las áreas, con el rastro de por qué cada caso quedó donde quedó.</p>
+<p><strong>Resultado:</strong> la herramienta <strong>no decide</strong> nada por sí sola: clasifica, extrae, cruza y evidencia. La decisión final siempre es del área responsable.</p>
+<hr>
+<h2>3 · Cronograma de alto nivel (12 semanas con colchón · base 10 · optimista 8)</h2>
+<div class="tblwrap"><table><thead><tr><th>Fase</th><th>Semana</th><th>Entregable principal</th><th>Validación</th></tr></thead><tbody><tr><td>Discovery y baseline</td><td>1</td><td>Esquema aprobado + plan de acceso a la casilla</td><td>AF + Sponsor</td></tr><tr><td>Lectura y medición</td><td>2</td><td>Documento "lectura de la casilla" + % útil real</td><td>AF + RDB</td></tr><tr><td>Extracción de correos</td><td>3</td><td>Conector Exchange (o importe PST), staging y filtro de ruido</td><td>IT + RDB</td></tr><tr><td>Golden set y primer modelo</td><td>4</td><td>Golden set aprobado (train/validation/test congelado) + primeras métricas</td><td>AF + EDI</td></tr><tr><td>Juez y umbrales</td><td>5</td><td>Métricas sobre validación contra las metas (90 / 95 / <30)</td><td>AF + EDI</td></tr><tr><td>Revisión de calidad</td><td>6</td><td>Reporte de errores + plan de ajuste fino</td><td>AF + EDI</td></tr><tr><td>Normalización y acceso</td><td>7</td><td>Reglas de normalización aprobadas + permisos de lectura 🔒</td><td>RDB + IT</td></tr><tr><td>Cruce y contrato de salida</td><td>8</td><td>Correo real resuelto de punta a punta + contrato BI</td><td>RDB + AF</td></tr><tr><td>Examen final</td><td>9</td><td>Métricas finales de go/no-go sobre el test congelado</td><td>AF + Sponsor</td></tr><tr><td>Datasets y tablero</td><td>10</td><td>Datasets por campaña + evidencias + documentación versionada</td><td>RDB + AF</td></tr><tr><td>Validación e informe</td><td>11</td><td>Informe de go/no-go con 3 escenarios</td><td>Sponsor (gate)</td></tr><tr><td>Colchón / traspaso</td><td>12</td><td>Cierre de desvíos, show & tell y firma</td><td>Sponsor</td></tr></tbody></table></div>
+<hr>
+<h2>4 · Semana por semana, paso a paso</h2>
+<hr>
+<p>### Semana 1 — Discovery y baseline</p>
+<p><strong>Objetivo de la semana:</strong> confirmar el problema con <strong>datos reales</strong> y dejar aprobado el "examen" esquema con el que se medirá todo el piloto. Si esta semana no se completa, no se puede dimensionar nada de lo que sigue.</p>
+<p><strong>Entregable principal:</strong> el <strong>esquema de clasificación y extracción</strong> aprobado por el negocio + el <strong>plan de acceso</strong> a la casilla.</p>
+<p>#### Tarea 1.1 — Obtener la muestra real de la casilla 🔒 (IT + CMP)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>labIA envía a IT el pedido formal: una muestra de ~300 a 600 correos que mezcle <strong>años distintos, campañas distintas y ruido real</strong> (autorespuestas, devoluciones, spam).</li><li>IT exporta en dos piezas, con <strong>solo lectura</strong>: (a) un CSV con metadatos (fecha, remitente, asunto, si trae adjunto) y (b) los correos <code>.eml/.msg</code> en una carpeta compartida <strong>dentro de la VPN</strong>.</li><li>CMP formaliza el acuerdo de confidencialidad y el tratamiento de datos bajo Ley 25.326 (los datos no salen de la red).</li><li>AF revisa que la muestra sea representativa (no solo un mes, no solo una campaña).</li></ol>
+<p><strong>¿Quién entrega?</strong> IT (export) y CMP (habilitación). <strong>¿Quién valida?</strong> AF (representatividad).</p>
+<p><strong>Criterio de aceptación:</strong> la muestra incluye ≥ 3 campañas distintas y ruido real; los datos quedaron dentro de la VPN.</p>
+<p>#### Tarea 1.2 — Definir la taxonomía con el negocio (AF + Sponsor, media jornada)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>Workshop presencial/virtual con AF y referentes de campañas.</li><li>Por cada clase se completa una fila con: <strong>definición operativa</strong> (cuándo un correo ES esa clase), <strong>3–5 ejemplos reales</strong> sacados de la muestra, <strong>qué se hace con esa salida</strong> y <strong>quién revisa</strong> los casos de esa clase.</li><li>Regla de control: si dos personas del negocio no coinciden en 8 de 10 ejemplos, la definición no está clara → se reescribe hasta que coincidan.</li><li>Se aprueba el <strong>esquema de clasificación</strong> (las 5 clases) y el <strong>esquema de extracción</strong> (los 8 campos de contacto).</li></ol>
+<p><strong>¿Quién entrega?</strong> AF (definición de negocio). <strong>¿Quién valida?</strong> Sponsor (aprueba el esquema).</p>
+<p><strong>Criterio de aceptación:</strong> esquema firmado con ejemplos reales por clase y dueño de revisión por clase.</p>
+<p>#### Tarea 1.3 — Planificar el acceso (ESI + IT)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>ESI propone el camino: cuenta de servicio EWS/Graph con <strong>mínimo privilegio</strong> (solo lectura, solo esa casilla), o plan B de importe PST.</li><li>IT confirma factibilidad y fechas.</li><li>ESI documenta el plan de acceso aprobado.</li></ol>
+<p><strong>¿Quién entrega?</strong> ESI. <strong>¿Quién valida?</strong> IT + CMP (permisos y Ley 25.326).</p>
+<p><strong>Criterio de aceptación:</strong> camino de acceso elegido y con fecha; CMP validó que es solo lectura.</p>
+<p><strong>> Qué le demuestra esto a la empresa:</strong> que arrancamos midiendo, no adivinando. La muestra real y la taxonomía firmada garantizan que todo lo que sigue se construye sobre el negocio de Aysa, no sobre supuestos de labIA.</p>
+<hr>
+<p>### Semana 2 — Lectura de la casilla y medición del baseline</p>
+<p><strong>Objetivo de la semana:</strong> leer la casilla completa con datos y medir el <strong>porcentaje real de correos útiles</strong>, el número que dimensiona todo el piloto.</p>
+<p><strong>Entregable principal:</strong> el documento <em>"lectura de la casilla"</em> (1 página) + el % útil real.</p>
+<p>#### Tarea 2.1 — Leer la casilla con datos (EDI + AF)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>EDI carga el CSV de metadatos y responde 6 preguntas con tablas de frecuencias:</li></ol>
+<ul><li>¿Cuántos correos hay por año/mes? (valida el ~60K histórico y el flujo recurrente)</li><li>¿Qué campañas se identifican? (por asunto/remitente)</li><li>¿Qué % es ruido real? (autorespuestas, devoluciones, spam, vacíos)</li><li>¿Cuántos traen adjuntos y de qué formato?</li><li>¿Cuántas cuentas remitentes distintas hay?</li><li>¿Cuántos correos vienen incompletos (sin cuerpo o sin datos de cuenta)?</li></ul>
+<ol><li>AF interpreta los resultados con ojos de negocio y confirma/ajusta los supuestos.</li><li>EDI redacta el documento de 1 página <strong>"lectura de la casilla"</strong>.</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI. <strong>¿Quién valida?</strong> AF (que las conclusiones reflejen el negocio).</p>
+<p><strong>Criterio de aceptación:</strong> el documento lista los números reales de la muestra y marca qué supuestos se calibran o se descartan.</p>
+<p>#### Tarea 2.2 — Medir el % útil real (EDI + AF)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>EDI aplica una primera versión del filtro de ruido (con reglas de código provisorias) sobre la muestra.</li><li>Reporta el <strong>% real de correos útiles</strong> (el que alimenta el dimensionamiento).</li><li>AF confirma que el número calza con la intuición del negocio.</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI. <strong>¿Quién valida?</strong> AF.</p>
+<p><strong>Criterio de aceptación:</strong> el % útil real queda documentado y aprobado por el negocio antes de seguir.</p>
+<p>#### Tarea 2.3 — Contrato de salida preliminar con BI (RDB + AF)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>Reunión corta con RDB: bosquejar qué columnas, qué granularidad y dónde se publicará el dataset por campaña.</li><li>No se firma todavía: el contrato definitivo se cierra cuando exista un correo real resuelto (semana 8).</li><li>RDB adelanta los estándares de formato que labIA debe cumplir.</li></ol>
+<p><strong>¿Quién entrega?</strong> ESI (implementación). <strong>¿Quién valida?</strong> RDB (formato).</p>
+<p><strong>Criterio de aceptación:</strong> bosquejo de contrato acordado y estándares de BI conocidos desde el inicio (evita retrabajo del riesgo R6).</p>
+<p><strong>> Qué le demuestra esto a la empresa:</strong> que primero se mide y después se promete. El % útil real reemplaza a los supuestos, y BI define el formato de lo que recibirá antes de que exista el primer dataset.</p>
+<hr>
+<p>### Semana 3 — Extracción de correos (parte técnica)</p>
+<p><strong>Objetivo de la semana:</strong> conectar la casilla y dejar funcionando el primer tramo del proceso (ingesta + filtro de ruido calibrado).</p>
+<p><strong>Entregable principal:</strong> el conector leyendo correos reales con deduplicación + el filtro de ruido calibrado.</p>
+<p>#### Tarea 3.1 — Conectar la casilla (ESI)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>ESI implementa el conector EWS/Graph (o el importe de PST si IT eligió el plan B).</li><li>Configura el <strong>proceso incremental</strong>: cada corrida trae solo lo nuevo/modificado, no reprocesa toda la casilla.</li><li>Configura el <strong>deduplicado</strong>: cada correo se identifica con su ID de Exchange + un hash del contenido; lo ya procesado no se vuelve a procesar.</li><li>Se corre una prueba con la muestra de la semana 1.</li></ol>
+<p><strong>¿Quién entrega?</strong> ESI. <strong>¿Quién valida?</strong> IT (que los accesos sean correctos y mínimos).</p>
+<p><strong>Criterio de aceptación:</strong> un lote de correos reales leído, sin duplicados y sin tocar la casilla (solo lectura).</p>
+<p>#### Tarea 3.2 — Montar el staging en el repositorio corporativo (ESI + RDB)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>ESI crea las tablas de área de trabajo (<code>stg_email</code>, <code>stg_adjunto</code>) en el repositorio corporativo de datos.</li><li>Cada fila guarda fecha de proceso y un sello de integridad (checksum/hash): <strong>nunca se borra ni se edita</strong> → trazabilidad total.</li><li>RDB valida que la estructura sea compatible con los estándares de su área.</li></ol>
+<p><strong>¿Quién entrega?</strong> ESI. <strong>¿Quién valida?</strong> RDB.</p>
+<p><strong>Criterio de aceptación:</strong> estructura aprobada por datos/BI; cada correo tiene fecha y sello de integridad.</p>
+<p>#### Tarea 3.3 — Filtro determinístico de ruido (ESI + AF)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>ESI implementa reglas de código (sin IA) que detectan autorespuestas ("Fuera de la oficina"), devoluciones ("Delivery Status"), spam y correos vacíos.</li><li>AF revisa en la muestra cuántos casos detectó y si son correctos.</li><li>Se ajustan las reglas hasta que el % de ruido detectado se corresponda con la realidad de la muestra.</li></ol>
+<p><strong>¿Quién entrega?</strong> ESI. <strong>¿Quién valida?</strong> AF.</p>
+<p><strong>Criterio de aceptación:</strong> al menos el 90% de los casos de ruido conocido de la muestra son descartados correctamente.</p>
+<p><strong>> Qué le demuestra esto a la empresa:</strong> que el piloto lee la casilla real sin tocar nada (solo lectura, dentro de la VPN) y con trazabilidad desde el primer byte. El filtro de ruido se calibra contra la realidad de Aysa, no contra supuestos.</p>
+<hr>
+<p>### Semana 4 — Golden set y primer modelo (corazón del piloto)</p>
+<p><strong>Objetivo de la semana:</strong> construir el "examen" con el negocio (golden set) y lograr la primera clasificación/extracción automática.</p>
+<p><strong>Entregable principal:</strong> golden set versionado (train/validation/test) con el <strong>test congelado</strong> + primer modelo con métricas sobre el set de entrenamiento.</p>
+<p>#### Tarea 4.1 — Etiquetar el golden set con el negocio 🔒 (AF + EDI)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>AF y un segundo etiquetador del negocio etiquetan por separado ~300 correos: clase + campos de contacto + qué tan seguros están.</li><li>EDI prepara y administra la planilla (o herramienta de etiquetado) con validaciones: lista de clases, ID único, campos obligatorios.</li><li>Las discrepancias entre etiquetadores se discuten y se resuelven con un tercero (AF + Sponsor).</li><li>EDI mide el <strong>acuerdo entre etiquetadores</strong> (objetivo: ≥ 0.8). Si está por debajo, las definiciones no están claras y se vuelve a la tarea 1.2.</li></ol>
+<p><strong>¿Quién entrega?</strong> AF (etiquetas de negocio). <strong>¿Quién valida?</strong> EDI (consistencia estadística) + AF (resolución de discrepancias).</p>
+<p><strong>Criterio de aceptación:</strong> acuerdo entre etiquetadores ≥ 0.8 y discrepancias resueltas.</p>
+<p>#### Tarea 4.2 — Separar el golden set en train / validation / test (EDI)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>EDI divide las ~300 etiquetas: <strong>70%</strong> para entrenar el modelo, <strong>15%</strong> para validar durante el desarrollo, <strong>15%</strong> para el examen final (test).</li><li>El set de <strong>test queda congelado</strong>: nadie lo mira ni lo ajusta hasta la semana 9. Es la garantía de que el examen final es honesto.</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI. <strong>¿Quién valida?</strong> AF (conocimiento del contenido) + EDI custodia el test.</p>
+<p><strong>Criterio de aceptación:</strong> test congelado y fuera del alcance de todo ajuste.</p>
+<p>#### Tarea 4.3 — Construir los prompts por campo con schema estricto (EDI)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>Para cada campo del esquema (clase y los 8 campos de contacto), EDI redacta una definición clara con ejemplos.</li><li>Se define el <strong>formato de salida obligatorio</strong> (JSON): si el modelo no responde con ese formato, el resultado no se acepta y el caso pasa a revisión.</li><li>Se arma el patrón <strong>prompt por campo</strong> (Instructor/DocInfo): el modelo responde campo por campo, sin libertad de "inventar" texto.</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI. <strong>¿Quién valida?</strong> AF (que la descripción de cada campo refleje el negocio).</p>
+<p><strong>Criterio de aceptación:</strong> el modelo responde siempre con el formato estricto; las respuestas fuera de formato van a revisión, nunca se guardan.</p>
+<p>#### Tarea 4.4 — Correr el primer modelo (EDI)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>EDI ejecuta la clasificación/extracción sobre el set de entrenamiento con el modelo elegido (self-host dentro de la VPN o cloud con DPA aprobado).</li><li>Reporta las <strong>primeras métricas</strong> de precisión sobre ese set (todavía no sobre el test).</li><li>EDI + AF revisan los casos mal clasificados para entender el porqué (¿el prompt? ¿la definición de clase?).</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI. <strong>¿Quién valida?</strong> AF + EDI (revisión conjunta de los errores).</p>
+<p><strong>Criterio de aceptación:</strong> primeras métricas de clasificación y extracción sobre train, con errores revisados y documentados.</p>
+<p><strong>> Qué le demuestra esto a la empresa:</strong> que el criterio de qué es cada correo lo define <strong>el negocio</strong> (el golden set es de Aysa), no labIA. Y que el "examen" del final ya está separado y bajo llave: cuando se reporten las métricas finales, no hubo manera de "curarlas".</p>
+<hr>
+<p>### Semana 5 — El juez y los umbrales</p>
+<p><strong>Objetivo de la semana:</strong> subir la confianza del modelo y bajar la cantidad de casos que necesitan revisión humana.</p>
+<p><strong>Entregable principal:</strong> cuadro de métricas del modelo sobre el set de validación, alineado a las metas de la lámina 13.</p>
+<p>#### Tarea 5.1 — Implementar el juez de validación (EDI)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>EDI define los casos "de zona gris": confianza media, campos incompletos o datos contradictorios dentro del mismo correo.</li><li>Se implementa un <strong>segundo pase</strong> sobre esos casos (~30% de los correos) que verifica coherencia: ¿el formato de la cuenta es el esperado? ¿el documento tiene la cantidad de dígitos de Aysa? ¿es lógico clasificar CONFIRMA sin datos de contacto?</li><li>Si el juez no confirma → el caso pasa a revisión humana (clase <code>DUDOSO</code>).</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI. <strong>¿Quién valida?</strong> AF (que las reglas del juez tengan sentido de negocio).</p>
+<p><strong>Criterio de aceptación:</strong> los casos coherentes se aceptan y los incongruentes van a revisión, sin excepciones.</p>
+<p>#### Tarea 5.2 — Ajustar umbrales (EDI + AF)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>EDI ajusta los umbrales de confianza (qué tan seguro debe estar el modelo para clasificar solo).</li><li>AF aprueba los umbrales con criterio de negocio: "queremos que se equivoque poco y que lo dudoso lo resuelva una persona".</li><li>Se versionan los umbrales (queda registro de qué versión se usó en cada corrida).</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI. <strong>¿Quién valida?</strong> AF.</p>
+<p><strong>Criterio de aceptación:</strong> umbrales versionados y aprobados; queda registro auditable.</p>
+<p>#### Tarea 5.3 — Medir contra las metas (EDI + AF)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>EDI corre el pipeline sobre el set de <strong>validación</strong> y reporta: precisión de clasificación, precisión de extracción y % de derivación a revisión.</li><li>Se compara contra las metas: <strong>clasificación ≥ 90% · extracción ≥ 95% · derivación < 30%</strong>.</li><li>Si hay gap, se documenta con plan de cierre: qué ajustar (prompts, umbrales, definiciones) para la semana 6.</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI. <strong>¿Quién valida?</strong> AF (contra el golden set, no contra la palabra de labIA).</p>
+<p><strong>Criterio de aceptación:</strong> cuadro de métricas sobre validation alineado a las metas, o gap documentado con plan.</p>
+<p><strong>> Qué le demuestra esto a la empresa:</strong> que hay un segundo control (el juez) para los casos dudosos y que el piloto ya mide su propia calidad contra metas objetivas que se fijaron de antemano.</p>
+<hr>
+<p>### Semana 6 — Revisión de calidad y cierre de gaps</p>
+<p><strong>Objetivo de la semana:</strong> entender los errores, decidir qué se ajusta y dejar todo listo para el examen final honesto.</p>
+<p><strong>Entregable principal:</strong> reporte de errores clasificado + plan de ajuste fino aprobado.</p>
+<p>#### Tarea 6.1 — Análisis de errores (EDI + AF)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>EDI clasifica los errores de la semana 5 en tres familias: <strong>¿es del prompt?</strong> (mala definición del campo), <strong>¿es de la definición?</strong> (la clase no estaba bien descripta) o <strong>¿es del dato?</strong> (el correo no tenía la información).</li><li>AF confirma la lectura de negocio de cada familia de errores.</li><li>Se cuantifica cuánto aporta cada familia a la brecha de las metas.</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI. <strong>¿Quién valida?</strong> AF.</p>
+<p><strong>Criterio de aceptación:</strong> cada error del validation queda etiquetado con su causa raíz y su impacto.</p>
+<p>#### Tarea 6.2 — Segundo pase de extracción (EDI)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>EDI reescribe prompts o definiciones para las familias de errores con mayor impacto.</li><li>Se re-corre sobre el <strong>validation</strong> (el test sigue congelado; el ajuste nunca toca el test).</li><li>Se mide cuánto mejora cada familia antes y después del ajuste.</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI. <strong>¿Quién valida?</strong> AF.</p>
+<p><strong>Criterio de aceptación:</strong> mejora documentada por familia y sin contacto con el test.</p>
+<p>#### Tarea 6.3 — Plan de ajuste fino para el examen final (EDI + AF)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>Se define qué se hará en la semana 9: qué prompts/umbrales se afinaron, con qué orden de magnitud de mejora esperada.</li><li>Se versiona el estado actual (baseline) para que el cambio de la semana 9 sea auditable.</li><li>Se deja registrado qué <strong>no</strong> se va a tocar (el test) bajo ninguna excusa.</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI. <strong>¿Quién valida?</strong> AF + EDI.</p>
+<p><strong>Criterio de aceptación:</strong> plan aprobado con antes/después, y test intocable por escrito.</p>
+<p><strong>> Qué le demuestra esto a la empresa:</strong> que la mejora de calidad se hace con método (causa raíz, no a los tiros) y con doble control. El test congelado garantiza que todo este ajuste también será medido con honestidad.</p>
+<hr>
+<p>### Semana 7 — Normalización y acceso al cruce</p>
+<p><strong>Objetivo de la semana:</strong> preparar los datos para el cruce contra la fuente corporativa y habilitar el acceso de lectura 🔒.</p>
+<p><strong>Entregable principal:</strong> reglas de normalización aprobadas + permisos de lectura de la fuente corporativa.</p>
+<p>#### Tarea 7.1 — Reglas de normalización (ESI + RDB)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>ESI implementa reglas de normalización: mayúsculas, sin tildes, formatos de cuenta y documento (ceros, guiones, espacios).</li><li>RDB valida las reglas contra la fuente corporativa (sin acceso de escritura; solo lectura).</li><li>Se versionan las reglas (queda registro de qué versión se usó en cada corrida).</li></ol>
+<p><strong>¿Quién entrega?</strong> ESI. <strong>¿Quién valida?</strong> RDB.</p>
+<p><strong>Criterio de aceptación:</strong> los datos de la muestra se normalizan sin pérdida y las reglas están documentadas y versionadas.</p>
+<p>#### Tarea 7.2 — Habilitar permisos de lectura de la fuente corporativa 🔒 (RDB + IT)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>RDB solicita el permiso de lectura (consulta) sobre la base de datos relacional corporativa, de mínimo privilegio.</li><li>IT habilita el acceso a la red de datos y documenta el circuito de consulta.</li><li>ESI confirma que puede consultar los datos reales (sin escribir nada).</li></ol>
+<p><strong>¿Quién entrega?</strong> RDB/IT (habilitación). <strong>¿Quién valida?</strong> ESI (que la consulta funciona) + CMP (Ley 25.326).</p>
+<p><strong>Criterio de aceptación:</strong> consulta de lectura real funcionando y documentada; sin permisos de escritura.</p>
+<p><strong>> Qué le demuestra esto a la empresa:</strong> que la evidencia se construye sobre los datos reales de Aysa (no sobre pruebas) y bajo permiso mínimo, con Compliance mirando todo el tiempo.</p>
+<hr>
+<p>### Semana 8 — Cruce determinístico y contrato de salida</p>
+<p><strong>Objetivo de la semana:</strong> conectar la verificación contra la base de datos relacional corporativa y cerrar el contrato de salida con BI.</p>
+<p><strong>Entregable principal:</strong> un correo real resuelto <strong>de punta a punta</strong> (ingestado → clasificado → cruzado → con evidencia).</p>
+<p>#### Tarea 8.1 — Implementar el cruce determinístico (ESI + RDB)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>ESI implementa el cruce con <strong>reglas de código</strong> (sin IA): comparar cuenta/contrato + titular contra la base corporativa.</li><li>Cada correo queda con una de tres evidencias: <code>Coincide · No coincide · Requiere revisión</code>, con el motivo.</li><li>RDB valida que las reglas reflejan cómo se identifica una cuenta en Aysa.</li></ol>
+<p><strong>¿Quién entrega?</strong> ESI. <strong>¿Quién valida?</strong> RDB (reglas) + AF (criterio de negocio).</p>
+<p><strong>Criterio de aceptación:</strong> cada correo tiene evidencia con motivo; los casos ambiguos van a revisión (nunca se deciden solos).</p>
+<p>#### Tarea 8.2 — Contrato de salida definitivo con BI (RDB + AF)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>Reunión con RDB: cerrar qué columnas, qué granularidad, qué periodicidad y dónde se publica el dataset por campaña.</li><li>Se firma el <strong>contrato de salida</strong>: es lo que garantiza que los datasets se consumen sin retrabajo (y evita el riesgo R6).</li><li>ESI implementa la primera salida de prueba.</li></ol>
+<p><strong>¿Quién entrega?</strong> ESI (implementación). <strong>¿Quién valida?</strong> RDB (formato) + AF (contenido de negocio).</p>
+<p><strong>Criterio de aceptación:</strong> formato de dataset aprobado por BI y una salida de prueba funcionando.</p>
+<p>#### Tarea 8.3 — Correr el flujo completo sobre un caso real (ESI + EDI + AF)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>Se toma un correo real de punta a punta: conector → filtro → clasificación → extracción → normalización → cruce → dataset.</li><li>AF revisa cada punto del recorrido y confirma que el resultado tiene sentido de negocio.</li><li>Queda registrado el primer caso "resuelto" como hito demostrable.</li></ol>
+<p><strong>¿Quién entrega?</strong> ESI + EDI. <strong>¿Quién valida?</strong> AF + RDB.</p>
+<p><strong>Criterio de aceptación:</strong> un correo real recorrió todo el pipeline con evidencia y fue validado por el negocio.</p>
+<p><strong>> Qué le demuestra esto a la empresa:</strong> que la confianza no depende de la IA: la evidencia la da un cruce determinístico contra los datos de Aysa, reproducible y auditable. Y que el formato final lo define el área de datos, no labIA.</p>
+<hr>
+<p>### Semana 9 — El examen final (test)</p>
+<p><strong>Objetivo de la semana:</strong> medir el piloto contra el <strong>set que nadie miró</strong> (test congelado en la semana 4). Es el momento de la verdad.</p>
+<p><strong>Entregable principal:</strong> métricas finales de go/no-go con números cerrados.</p>
+<p>#### Tarea 9.1 — Correr el pipeline completo sobre el test (EDI)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>EDI ejecuta el pipeline completo (ingesta → filtro → clasificación → cruce → datasets) sobre el set de test.</li><li>EDI reporta las métricas finales: clasificación, extracción, derivación y cobertura.</li><li>El set de test nunca se usó para ajustar nada → el resultado es honesto.</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI. <strong>¿Quién valida?</strong> AF + EDI (contraloría cruzada: AF confirma contra las etiquetas de oro).</p>
+<p>#### Tarea 9.2 — Ajuste fino con resultados del test (EDI + AF)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>Con los errores del test identificados, EDI propone ajustes finos (prompts, umbrales).</li><li>AF decide si los ajustes cambian el criterio de negocio o solo técnico.</li><li>Se registra la diferencia entre la primera corrida y la versión final.</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI. <strong>¿Quién valida?</strong> AF + EDI.</p>
+<p><strong>Criterio de aceptación:</strong> la métrica final se reporta con su versión (sin "cocinar" el número).</p>
+<p>#### Tarea 9.3 — Revisar la cola humana (AF)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>AF revisa los casos derivados a revisión humana: ¿son razonables? ¿una persona los resuelve rápido? ¿la cola funciona?</li><li>Se documenta cuánto tiempo toma resolver un caso dudoso (para el cálculo de horas liberadas).</li></ol>
+<p>#### Tarea 9.4 — Decidir self-host vs cloud con dato (EDI + CMP + IT)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>EDI reporta el cómputo real consumido en la muestra y las <strong>estimaciones finales</strong> de costo para el histórico y el recurrente.</li><li>IT confirma la disponibilidad de cómputo para self-host; CMP aprueba (o no) el DPA para cloud.</li><li>Se toma la decisión con el dato real, no por preferencia.</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI (números). <strong>¿Quién valida?</strong> IT + CMP (decisión) + AF (de negocio).</p>
+<p><strong>> Qué le demuestra esto a la empresa:</strong> que las métricas se sacaron con un examen congelado desde la semana 4 — no hay forma de que labIA "arregle" los números. Y que las decisiones de despliegue se toman con datos reales de su muestra.</p>
+<hr>
+<p>### Semana 10 — Datasets, evidencias, documentación y tablero</p>
+<p><strong>Objetivo de la semana:</strong> consolidar todo en entregables y dejar listo el material para el gate.</p>
+<p><strong>Entregable principal:</strong> datasets por campaña con evidencia + documentación versionada + tablero de métricas.</p>
+<p>#### Tarea 10.1 — Procesar el histórico útil completo (ESI + EDI)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>Se procesa el histórico completo útil (no solo la muestra) con el pipeline final.</li><li>Se generan los <strong>datasets por campaña</strong> con el formato aprobado por BI (tarea 8.2) y el rastro de evidencia por correo.</li><li>RDB valida el contenido final.</li></ol>
+<p><strong>¿Quién entrega?</strong> ESI + EDI. <strong>¿Quién valida?</strong> RDB.</p>
+<p><strong>Criterio de aceptación:</strong> dataset por campaña con evidencia por fila, en el formato firmado.</p>
+<p>#### Tarea 10.2 — Documentación técnica (ESI + EDI)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>ESI documenta el conector, el staging, el filtro y el cruce; EDI documenta el esquema, los prompts, el juez y los umbrales (con versiones).</li><li>IT y RDB revisan y aprueban la documentación.</li><li>Se publica la documentación versionada (v1.0) en el repositorio de Aysa.</li></ol>
+<p><strong>¿Quién entrega?</strong> ESI + EDI. <strong>¿Quién valida?</strong> IT + RDB.</p>
+<p>#### Tarea 10.3 — Tablero de métricas (leading vs lagging) (EDI + RDB)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>Se arma el tablero con las métricas de proceso (precisiones, % derivación, tiempo por caso) y las de negocio (inconsistencias por origen, datasets entregados, horas liberadas).</li><li>RDB valida la calidad del tablero; AF valida el contenido de negocio.</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI. <strong>¿Quién valida?</strong> RDB + AF.</p>
+<p><strong>> Qué le demuestra esto a la empresa:</strong> que reciben algo consumible y auditable: dataset + evidencia + documentación + tablero. No un demo de escritorio, sino la entrega lista para las áreas.</p>
+<hr>
+<p>### Semana 11 — Validación final e informe de go/no-go</p>
+<p><strong>Objetivo de la semana:</strong> cerrar los números y dejar el informe para el gate, con tres escenarios de lectura.</p>
+<p><strong>Entregable principal:</strong> informe de go/no-go con 3 escenarios.</p>
+<p>#### Tarea 11.1 — Validación final contra las metas (EDI + AF + RDB)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>Revisión conjunta de las 5 métricas de la lámina 13 contra el resultado real del test.</li><li>AF confirma con ojos de negocio; RDB confirma la calidad del dataset y la evidencia 100%.</li><li>Se documenta cualquier brecha con su plan de cierre.</li></ol>
+<p><strong>¿Quién entrega?</strong> EDI (métricas). <strong>¿Quién valida?</strong> AF + RDB.</p>
+<p>#### Tarea 11.2 — Informe con 3 escenarios (EDI + AF + Sponsor)</p>
+<p><strong>Qué se hace, paso a paso:</strong></p>
+<ol><li>EDI arma el informe con 3 escenarios: <strong>pesimista</strong> (si se mantienen los umbrales actuales en producción, qué pasa), <strong>base</strong> (recomendado) y <strong>optimista</strong> (si el tuneo fino rinde más).</li><li>El registro de riesgos se actualiza con el resultado real de la muestra y la decisión de despliegue.</li><li>AF presenta el informe al Sponsor; el gate decide el go o el no-go con los números de la lámina 13.</li></ol>
+<p><strong>> Qué le demuestra esto a la empresa:</strong> que la decisión nunca se apoya en un único número: siempre hay pesimista / base / optimista, anclados en el baseline medido de Aysa. Y que el gate lo preside el Sponsor, no labIA.</p>
+<hr>
+<p>### Semana 12 (colchón) — Cierre de desvíos / traspaso</p>
+<p><strong>Objetivo de la semana:</strong> absorber cualquier desvío del escenario pesimista. Si no hay desvíos, se libera antes de tiempo.</p>
+<p><strong>Entregable principal:</strong> piloto cerrado con métricas firmadas y traspaso al negocio.</p>
+<div class="tblwrap"><table><thead><tr><th>#</th><th>Qué se hace</th><th>Entrega</th><th>Validación</th></tr></thead><tbody><tr><td>12.1</td><td>Cerrar desvíos del golden set o del cruce si los hubo</td><td>Métricas finales firmadas</td><td>AF + EDI</td></tr><tr><td>12.2</td><td>Sesión de traspaso / show & tell con las áreas</td><td>Datasets, evidencias y notas de la sesión</td><td>Sponsor</td></tr><tr><td>12.3</td><td>Actualizar registro de riesgos y decisiones abiertas</td><td>Registro vivo versión final</td><td>CMP + AF</td></tr></tbody></table></div>
+<p><strong>> Qué le demuestra esto a la empresa:</strong> que el plan contempla el imprevisto con honestidad, y que el cierre no es "cartón pintado": se muestra, se traspasa y se firma.</p>
+<hr>
+<h2>5 · Lo que Aysa debe entregar para que nada se trabe (bloqueadores 🔒)</h2>
+<div class="tblwrap"><table><thead><tr><th>#</th><th>Entregable de Aysa</th><th>Quién</th><th>Para qué tarea</th><th>Fecha límite</th><th>Si se demora</th></tr></thead><tbody><tr><td>D1</td><td>Muestra representativa + acceso solo lectura (o export PST)</td><td>IT + CMP</td><td>Tareas 1.1, 1.3</td><td>Semana 1</td><td>Se replanifica el piloto: no se arranca sobre supuestos</td></tr><tr><td>D2</td><td>Sesiones de negocio para taxonomía (1.2) y golden set (4.1)</td><td>AF / negocio</td><td>Semanas 1 y 4</td><td>Semana 1 y 4</td><td>Se corre el cronograma; el "examen" se atrasa</td></tr><tr><td>D3</td><td>Permisos de lectura de la fuente corporativa</td><td>RDB / IT</td><td>Tarea 7.2</td><td>Semana 7</td><td>El cruce se valida con datos de prueba, no reales</td></tr><tr><td>D4</td><td>DPA y retención aprobadas si se elige cloud (o visto bueno self-host)</td><td>CMP</td><td>Tarea 9.4</td><td>Antes del gate</td><td>Se elige self-host (recomendado de todos modos)</td></tr></tbody></table></div>
+<hr>
+<h2>6 · Métricas objetivo del go/no-go (definidas de antemano, lámina 13)</h2>
+<div class="tblwrap"><table><thead><tr><th>Métrica</th><th>Meta</th><th>Cómo se mide</th><th>Quién mide / quién valida</th></tr></thead><tbody><tr><td>Precisión de clasificación</td><td>≥ 90%</td><td>Golden set de test (etiqueta predicha vs oro)</td><td>EDI mide / AF valida</td></tr><tr><td>Precisión de extracción de campos clave</td><td>≥ 95%</td><td>Campos correctos vs golden set</td><td>EDI mide / AF valida</td></tr><tr><td>Tasa de derivación a revisión</td><td>< 30%</td><td>% de casos que van a cola humana</td><td>EDI mide / AF valida</td></tr><tr><td>Cobertura por campaña</td><td>≥ 95% de emails útiles</td><td>Asignación correcta a campaña/dataset</td><td>EDI mide / RDB valida</td></tr><tr><td>Evidencia por email</td><td>100% · bloqueante</td><td>Rastro de cruce en cada fila del dataset</td><td>RDB valida / bloqueante</td></tr></tbody></table></div>
+<hr>
+<h2>7 · Regla de go/no-go (resumen para el gate)</h2>
+<p><strong>GO</strong> → se cumplen las 5 métricas de la tabla anterior (la evidencia 100% es bloqueante: sin ella no hay go, pase lo que pase con el resto).</p>
+<p><strong>NO-GO</strong> → se activa cualquier kill criterion de la lámina 13 (retraso > 3 meses, adopción > 50% bajo lo previsto, precisión que no cierra ni con revisión, acceso de muestra nunca habilitado, costo operativo fuera de rango). Se cierra con <strong>pérdida acotada al piloto</strong>, se documenta el aprendizaje y no se toca ningún sistema.</p>
+<p>La decisión final la toma el <strong>Sponsor de Aysa</strong> con el comité (IT + Compliance + áreas), sobre los números del informe, no sobre la palabra de labIA.</p>
+<hr>
+<h2>8 · La operación en marcha (lo que queda automatizado después de implementar)</h2>
+<p><strong>Para qué sirve esta sección:</strong> las semanas 1–12 construyen el piloto; acá se explica qué queda <strong>corriendo en producción</strong> cuando se cierra. Es la respuesta a "¿y después de implementar todo, qué?"</p>
+<p>### Qué queda automatizado</p>
+<div class="tblwrap"><table><thead><tr><th>Tramo</th><th>Cómo funciona en producción</th><th>Intervención manual</th></tr></thead><tbody><tr><td><strong>Ingesta incremental</strong></td><td>El conector (dentro de la VPN) levanta solo los correos nuevos de la casilla en cada corrida programada; dedupe + sello de integridad; staging append-only en el repositorio corporativo</td><td>Ninguna</td></tr><tr><td><strong>Filtro y clasificación + extracción</strong></td><td>Reglas determinísticas de ruido + modelo liviano con schema estricto sobre cada correo útil</td><td>Ninguna (el modelo no guarda respuestas fuera de formato: van a revisión)</td></tr><tr><td><strong>Juez y derivación</strong></td><td>Segundo pase sobre los casos grises; si no se confirma, el caso va a la cola de revisión humana</td><td>La persona del área resuelve solo lo dudoso</td></tr><tr><td><strong>Cruce contra la fuente corporativa</strong></td><td>Reglas de código (sin IA) contra la base relacional; evidencia <code>Coincide · No coincide · Requiere revisión</code> en cada corrida</td><td>Ninguna</td></tr><tr><td><strong>Salidas y dashboard</strong></td><td>Datasets por campaña en el formato BI firmado + tablero de métricas, actualizados en cada corrida</td><td>Ninguna</td></tr></tbody></table></div>
+<p>### Quién opera el día a día en Aysa</p>
+<ul><li><strong>Área de datos / BI</strong> → ejecuta y monitorea las corridas, revisa alertas y valida la calidad de los datasets. Es el dueño operativo.</li><li><strong>Referente funcional (negocio)</strong> → revisa la cola de revisión, aprueba criterios de clasificación y valida los resultados con ojos de negocio.</li><li><strong>labIA</strong> → período de acompañamiento acotado durante la estabilización (definido en el acuerdo), con cambios de umbrales/reglas bajo gobernanza y versionado.</li><li><strong>Compliance</strong> → revisión periódica del tratamiento de datos (Ley 25.326): retención, acceso y DPA si se eligió cloud.</li></ul>
+<p>### Reglas que se mantienen en producción</p>
+<ul><li><strong>La herramienta sustenta, el área decide</strong>: lo dudoso lo resuelve una persona y su decisión queda registrada.</li><li><strong>Trazabilidad completa</strong>: cada fila de dataset conserva su rastro de evidencia y su versión de reglas/umbrales.</li><li><strong>Cambios con gobernanza</strong>: cualquier ajuste de umbrales, prompts o normalización se versiona y se mide antes, con el mismo patrón del piloto.</li></ul>
+<p>### Escalado (lo que habilita)</p>
+<ul><li>El <strong>mismo motor</strong> se aplica a otras casillas y áreas (Dirección Comercial, Comunicaciones) con costo marginal bajo.</li><li><strong>Enterprise</strong> agrega OCR documental y verificación multiprueba sobre la misma arquitectura.</li><li><strong>RPA opcional (posterior)</strong>: automatizar el último tramo —detectada la inconsistencia, generar la corrección o actualizar la fuente de origen— solo si Aysa ya opera RPA y con su propio go/no-go.</li></ul>
+</body>
+</html>
