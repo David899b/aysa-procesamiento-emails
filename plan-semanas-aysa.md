@@ -2,7 +2,7 @@
 
 > **Qué es este documento:** es el desglose operativo del MVP de **8 a 12 semanas**. Detalla, semana por semana, **qué** se hace, **quién** lo hace, **quién** lo valida, **qué** se entrega y **cómo se sabe** que quedó bien hecho. Sirve como documento de trabajo de la demo, para que la empresa vea que no hay grises: cada rol, actividad y proceso está definido antes de arrancar.
 > **Cómo leerlo:** cada semana tiene (1) su objetivo, (2) el entregable principal, (3) las tareas desglosadas en pasos concretos, y (4) el bloque "qué le demuestra esto a la empresa". Las celdas con 🔒 dependen de un entregable de Aysa.
-> **Escenarios de duración:** base = 10 semanas · pesimista (con colchón) = 12 · optimista = 8 si EWS se habilita rápido y el golden set queda validado en la semana 2. Nunca se comprime la validación.
+> **Escenarios de duración:** base = 10 semanas · pesimista = 12 · optimista = 8 si EWS se habilita rápido y el golden set queda validado en la semana 2. Nunca se comprime la validación.
 > **Regla transversal:** **nadie valida lo que produce.** Quien entrega y quien valida son personas distintas. Es la garantía de que las métricas son confiables para la decisión de go/no-go.
 
 ---
@@ -48,7 +48,7 @@ Para que no quede ninguna duda de qué estamos construyendo, así fluye un solo 
 
 ---
 
-## 3 · Cronograma de alto nivel (12 semanas con colchón · base 10 · optimista 8)
+## 3 · Cronograma de alto nivel (pesimista 12 semanas · base 10 · optimista 8)
 
 | Fase | Semana | Entregable principal | Validación |
 |---|---|---|---|
@@ -63,7 +63,7 @@ Para que no quede ninguna duda de qué estamos construyendo, así fluye un solo 
 | Examen final | 9 | Métricas finales de go/no-go sobre el test congelado | AF + Sponsor |
 | Datasets y tablero | 10 | Datasets por campaña + evidencias + documentación versionada | RDB + AF |
 | Validación e informe | 11 | Informe de go/no-go con 3 escenarios | Sponsor (gate) |
-| Colchón / traspaso | 12 | Cierre de desvíos, show & tell y firma | Sponsor |
+| Traspaso y cierre | 12 | Show & tell, traspaso y firma | Sponsor |
 
 ---
 
@@ -507,9 +507,9 @@ Para que no quede ninguna duda de qué estamos construyendo, así fluye un solo 
 
 ---
 
-### Semana 12 (colchón) — Cierre de desvíos / traspaso
+### Semana 12 — Traspaso y cierre
 
-**Objetivo de la semana:** absorber cualquier desvío del escenario pesimista. Si no hay desvíos, se libera antes de tiempo.
+**Objetivo de la semana:** cerrar el piloto con traspaso al negocio, show & tell y firma. Si quedaron desvíos del escenario pesimista, se documentan y cierran acá.
 
 **Entregable principal:** piloto cerrado con métricas firmadas y traspaso al negocio.
 

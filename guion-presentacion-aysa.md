@@ -205,10 +205,10 @@ Todo lo que se muestra en la demo es una sola tubería (pipeline) de 4 pasos. Si
 **Objetivo:** vender que con poco se resuelve el problema hoy. Es EL pedido de la reunión.
 
 **Qué decir:**
-> "El MVP detecta inconsistencias ya: clasificación y extracción de texto de la casilla, cruce con la fuente corporativa y generación de datasets más evidencias por campaña. Dura de 8 a 12 semanas —base de 10, con colchón de 12 y optimista de 8— y tiene 8 actividades: análisis de requerimientos y muestra de correos, desarrollo de la extracción desde Exchange o importe PST, diseño del esquema de clasificación, implementación del modelo de IA, integración con la fuente de datos corporativa, validación con golden set, generación de reportes y datasets, y pruebas y ajustes finales."
+> "El MVP detecta inconsistencias ya: clasificación y extracción de texto de la casilla, cruce con la fuente corporativa y generación de datasets más evidencias por campaña. Dura de 8 a 12 semanas —base de 10, pesimista de 12 y optimista de 8— y tiene 8 actividades: análisis de requerimientos y muestra de correos, desarrollo de la extracción desde Exchange o importe PST, diseño del esquema de clasificación, implementación del modelo de IA, integración con la fuente de datos corporativa, validación con golden set, generación de reportes y datasets, y pruebas y ajustes finales."
 
 **Análisis del dato (cada card del bloque derecho):**
-- **Duración 8–12 semanas** → el detalle semana a semana con tareas y responsables va en las láminas 8–9 y en el **documento de trabajo** (`plan-semanas-aysa.md`). En la lámina 7 solo se expone el mensaje de "corto y acotado" y los escenarios (base 10 · colchón 12 · optimista 8).
+- **Duración 8–12 semanas** → el detalle semana a semana con tareas y responsables va en las láminas 8–9. En la lámina 7 solo se expone el mensaje de "corto y acotado" y los escenarios (base 10 · pesimista 12 · optimista 8).
 - **Contenido: Texto** → sin OCR de adjuntos. Esto es lo que hace el MVP barato y rápido. Los adjuntos quedan para la **opción Enterprise** (lámina 10): OCR documental, evaluación con datos reales.
 - **Modelo: Liviano** → corre self-host (VPN) o cloud con DPA. No requiere infra pesada.
 - **Decisiones: Áreas** → la herramienta sustenta; el área decide. Coherente con la lámina 5.
@@ -253,7 +253,7 @@ Todo lo que se muestra en la demo es una sola tubería (pipeline) de 4 pasos. Si
 **Objetivo:** cerrar el plan con la parte que genera la evidencia, el examen final y la entrega.
 
 **Qué decir:**
-> "En las últimas seis semanas se produce la evidencia y la entrega. Semana 7: normalizamos los datos y habilitamos los permisos de lectura de la fuente corporativa. Semana 8: hacemos el cruce determinístico —Coincide, No coincide o Requiere revisión— y firmamos con BI el contrato de salida; es cuando mostramos un correo real resuelto de punta a punta. Semana 9: es el examen final: corremos el pipeline completo sobre el set de test que quedó congelado en la semana 4, ajustamos fino y tomamos la decisión de modelo con datos reales. Semana 10: procesamos el histórico útil completo, generamos los datasets por campaña con su evidencia, documentamos todo y armamos el tablero. Semana 11: validación final contra las metas y el informe de go/no-go con 3 escenarios. La semana 12 es colchón: dedicado a absorber desvíos, traspaso y firma del cierre. El escenario base es de 10 semanas; con colchón, 12; si EWS se habilita rápido, 8. Nunca se comprime la validación."
+> "En las últimas seis semanas se produce la evidencia y la entrega. Semana 7: normalizamos los datos y habilitamos los permisos de lectura de la fuente corporativa. Semana 8: hacemos el cruce determinístico —Coincide, No coincide o Requiere revisión— y firmamos con BI el contrato de salida; es cuando mostramos un correo real resuelto de punta a punta. Semana 9: es el examen final: corremos el pipeline completo sobre el set de test que quedó congelado en la semana 4, ajustamos fino y tomamos la decisión de modelo con datos reales. Semana 10: procesamos el histórico útil completo, generamos los datasets por campaña con su evidencia, documentamos todo y armamos el tablero. Semana 11: validación final contra las metas y el informe de go/no-go con 3 escenarios. La semana 12 es de traspaso y cierre: show & tell con las áreas y firma del cierre. El escenario base es de 10 semanas; pesimista, 12; optimista, 8 si EWS se habilita rápido. Los desvíos se absorben en el escenario pesimista; nunca se comprime la validación."
 
 **Análisis del dato (cada semana y por qué importa):**
 - **S7 · Normalización y acceso** → reglas versionadas y permiso mínimo de lectura sobre datos reales de Aysa (depende de D3): la evidencia se construye sobre los datos del cliente, no sobre pruebas.
@@ -261,11 +261,11 @@ Todo lo que se muestra en la demo es una sola tubería (pipeline) de 4 pasos. Si
 - **S9 · Examen final** → el set de test congelado en la S4 no se usó para ajustar nada: las métricas finales son honestas. Acá también se decide self-host vs cloud con el cómputo real de la muestra.
 - **S10 · Datasets y documentación** → datasets + evidencias + documentación versionada + tablero. Es la entrega lista para consumir, no un demo.
 - **S11 · Validación e informe** → siempre 3 escenarios (pesimista / base / optimista) anclados en el baseline medido; el gate lo preside el Sponsor.
-- **S12 · Colchón** → plan honesto ante el imprevisto; nunca se comprime la validación.
+- **S12 · Traspaso y cierre** → cierre con show & tell y firma; los desvíos se absorben en el escenario pesimista. Nunca se comprime la validación.
 
 **Preguntas probables:**
 - *"¿Qué pasa si en la semana 9 no se llega a la meta?"* → Se reporta el gap con plan de cierre. Si no se cierra ni con revisión, se activa el kill criterion de precisión de la lámina 15.
-- *"¿El colchón es pérdida de tiempo?"* → No: absorber el escenario pesimista es lo que permite comprometer el plan de 8–12 semanas sin sorpresas.
+- *"¿Por qué 12 en el escenario pesimista y no 10?"* → Porque el plan contempla el imprevisto dentro del rango 8–12: comprometer el rango sin sorpresas exige nunca comprimir la validación.
 
 **Decisiones abiertas:** resultado del cruce sobre datos reales (depende de D3) y decisión self-host vs cloud.
 
@@ -376,7 +376,7 @@ Todo lo que se muestra en la demo es una sola tubería (pipeline) de 4 pasos. Si
 > "Tres horizontes. H1 es el piloto MVP, de 0 a 3 meses, y es lo único que pedimos aprobar ahora: datasets más evidencias por campaña para las áreas, con golden set de validación. H2 es la opción Enterprise, de 3 a 6 meses: OCR documental, verificación multiprueba y dashboard con cola de revisión, todo sobre la misma base del MVP. Y H3 es la escala de casillas, según demanda: aplicar el mismo patrón a otras casillas y áreas. Enterprise y la escala tienen su propio go/no-go. Si H1 no supera los criterios, se cierra con pérdida acotada — el riesgo queda limitado desde el día uno."
 
 **Análisis de cada horizonte (por qué está diseñado así):**
-- **H1 · Piloto MVP (0–3 meses, "Aprueba ahora")** → es la única inversión pedida. 8–12 semanas de construcción (base 10 · colchón 12 · optimista 8) + ventana de medición. Su métrica de éxito está en la lámina 15.
+- **H1 · Piloto MVP (0–3 meses, "Aprueba ahora")** → es la única inversión pedida. 8–12 semanas de construcción (base 10 · pesimista 12 · optimista 8) + ventana de medición. Su métrica de éxito está en la lámina 15.
 - **H2 · Opción Enterprise (3–6 meses, "Contexto")** → la evolución con OCR y multiprueba, sobre el motor del MVP. Se muestra como opción (lámina 10), no como parte del ask de hoy.
 - **H3 · Escala de casillas (según demanda, "Contexto")** → reutiliza el motor: aplicar el patrón a otras casillas y áreas. Es el contrafáctico contra "de qué sirve un MVP": el MVP es la base de la escala.
 
