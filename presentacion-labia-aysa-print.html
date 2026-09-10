@@ -235,7 +235,7 @@ const SLIDES = [
     <div style="padding:5px 0;font-size:.9rem;color:var(--muted);">8 · Pruebas y ajustes finales</div>
   </div>
   <div class="grid">
-    <div class="card"><div class="label">Duración</div><div class="num sm">8–12 semanas</div><div style="font-size:.85rem;color:var(--muted);">Base 10 · con colchón 12 · optimista 8. Detalle semana a semana en anexo.</div></div>
+    <div class="card"><div class="label">Duración</div><div class="num sm">8–12 semanas</div><div style="font-size:.85rem;color:var(--muted);">Base 10 · pesimista 12 · optimista 8. Detalle semana a semana en anexo.</div></div>
     <div class="card"><div class="label">Contenido</div><div class="num sm">Texto</div><div style="font-size:.85rem;color:var(--muted);">Correos de campaña; sin OCR de adjuntos.</div></div>
     <div class="card"><div class="label">Modelo</div><div class="num sm">Liviano</div><div style="font-size:.85rem;color:var(--muted);">Que corre self-host o en cloud con DPA.</div></div>
     <div class="card"><div class="label">Decisiones</div><div class="num sm">Áreas</div><div style="font-size:.85rem;color:var(--muted);">La herramienta sustenta; el área decide.</div></div>
@@ -272,12 +272,12 @@ const SLIDES = [
       ["9 · Examen final","· Pipeline completo sobre el golden set de test (congelado en la semana 4) · Ajuste fino de prompts y umbrales · Revisión de la cola humana · Decisión self-host vs cloud con el dato real","Métricas finales de go/no-go"],
       ["10 · Datasets y documentación","· Datasets por campaña con rastro de evidencia · Documentación técnica y versionado · Tablero de métricas (proceso y negocio)","Datasets + tablero listos"],
       ["11 · Validación e informe","· Validación final contra las metas · Informe de go/no-go con 3 escenarios · Actualización del registro de riesgos","Informe preparado para el gate"],
-      ["12 · Colchón / traspaso","· Cierre de desvíos si los hubo · Sesión de traspaso y show & tell con las áreas · Firma de cierre del piloto","Piloto cerrado y firmado"]
+      ["12 · Traspaso y cierre","· Sesión de traspaso y show & tell con las áreas · Firma de cierre del piloto","Piloto cerrado y firmado"]
     ].map(r=>`<tr><td style="white-space:nowrap;"><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}
   </tbody>
 </table>
 </div>
-<div class="callout acc" style="margin-top:22px;"><span class="ico">✅</span><div><b>Escenarios:</b> base 10 semanas · pesimista 12 (colchón) · optimista 8 si hay EWS directo y golden set listo. Nunca se comprime la validación. Todo el detalle (pasos, responsables, criterios) en <span class="mono">plan-semanas-aysa.md</span>.</div></div>`,
+<div class="callout acc" style="margin-top:22px;"><span class="ico">✅</span><div><b>Escenarios:</b> base 10 semanas · pesimista 12 · optimista 8 si hay EWS directo y golden set listo. Nunca se comprime la validación.</div></div>`,
 
 /* 10 PROPUESTA 2 · ENTERPRISE */
 ()=>`<div class="kicker">06 · La opción Enterprise</div><h2 style="margin-bottom:20px;">Enterprise · la evolución con OCR y multiprueba</h2>
